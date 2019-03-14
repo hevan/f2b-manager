@@ -1,0 +1,100 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'查看基地信息'" [icon]="'fa-th-list'"></app-page-header>
+    <div class="row" *ngIf="plantData">
+
+        <div class="row col-12">
+            <div class="col-4">产品名:</div>
+            <div class="col-8">{{plantData.name}}</div>
+        </div>
+        <div class="row col-12">
+            <div class="col-4">城市:</div>
+            <div class="col-8">{{plantData.province}}-{{plantData.city}}-{{plantData.region}}</div>
+        </div>
+        <div class="row col-12">
+            <div class="col-4">地址:</div>
+            <div class="col-8">{{plantData.address}}</div>
+        </div>
+        <div class="row col-12">
+           <img [src]="plantData.imageUrl">
+        </div>
+        <div class="row col-12">
+            <p [innerHtml]="plantData.content"></p>
+        </div>
+    </div>
+    <div class="row col-12 text-right">
+        <button class="btn btn-primary" (click)="toEdit()">编辑</button>&nbsp;
+        <button type="button" (click)="goBack()" class="btn btn-warning">返回</button>
+    </div>
+    <div class="row ">
+        <p-tabView>
+            <p-tabPanel header="图片资料">
+                <div class="row col-12 text-right">
+                    <button type="button" (click)="addMediaItem()">增加媒体图片</button>
+                </div>
+                <div class="row col-12 mt-1">
+                    <p-table [value]="listMediaItem">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>名称</th>
+                                <th>图片</th>
+                                <th>媒体类型</th>
+                                <th>多媒体</th>
+                                <th>操作</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-item>
+                            <tr>
+                            <td >
+                             {{item.name}}
+                            </td>
+                            <td >
+                                <img [src]="item.imageUrl" width="100" />
+                            </td>
+                            <td >
+                                {{item.mediaType}}
+                            </td>
+                            <td >
+                                {{item.mediaUrl}}
+                            </td>
+                            <td >
+                                <button class="btn btn-outline-secondary" (click)="deleteMediaItem(item.id)">删除</button>&nbsp;
+                            </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                    </div>
+                </p-tabPanel>
+                <p-tabPanel header="详情信息">
+                    <div class="row col-12 text-right">
+                        <button type="button" (click)="addContentItem()">增加宣传内容</button>
+                    </div>
+                    <div class="row col-12 mt-1">
+                    <p-table [value]="listContentItem">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>名称</th>
+                                <th>图片URL</th>
+                                <th>图片</th>
+                                <th>操作</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-item>
+                            <tr>
+                                <td>
+                                    {{item.name}}
+                                </td>
+                                <td><p style="word-wrap:break-word;">{{item.imageUrl}}</p></td>
+                                <td ><img [src]="item.imageUrl" width="100"></td>
+                                <td>
+                                    <button class="btn btn-outline-secondary" (click)="deleteContentItem(item.id)">删除</button>&nbsp;
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                        </div>
+                </p-tabPanel>
+            </p-tabView>
+    </div>
+
+
+</div>

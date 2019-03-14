@@ -1,0 +1,77 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'查看联合体资料'" [icon]="'fa-th-list'"></app-page-header>
+    <div class="row" *ngIf="unionData">
+        <div class="col-xs-6 col-md-6">
+            <div class="row">
+                <div class="col-4">名称:</div>
+                <div class="col-8">{{unionData.name}}</div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-12">
+            <div class="row">
+                <div class="col-12">图片:</div>
+
+            </div>
+            <div class="row">
+                <div class="col-12"><img [src]="unionData.imageUrl" width="200"></div>
+
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-6">
+            <div class="row">
+                <div class="col-4">描述:</div>
+                <div class="col-8">{{unionData.description}}</div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row justify-content-end">
+        <div class="col-md-6 ">
+            <button class="btn btn-primary" (click)="toEdit()">编辑</button>
+            <button class="btn btn-primary" (click)="selectCorp()">添加企业</button>
+            <button class="btn btn-secondary" (click)="goBack()">返回</button>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <p-table [value]="listCorp">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>企业名称</th>
+                    <th>企业类型</th>
+                    <th>经营范围</th>
+                    <th>城市</th>
+                    <th>地址</th>
+                    <th>联系人</th>
+                    <th>联系电话</th>
+                    <th>创建日期</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td>
+                        {{item.name}}
+                    </td>
+                    <td>{{item.corpType.name}}</td>
+                    <td >{{item.busiScope}}</td>
+                    <td >{{item.city}}</td>
+                    <td >{{item.address}}</td>
+                    <td>{{item.linkMan}}</td>
+                    <td>{{item.linkTel}}</td>
+                    <td>{{item.createDate}}</td>
+                    <td>
+                        <span *ngIf="item.checkStatus == 0">未审核</span>
+                        <span *ngIf="item.checkStatus == 1">已提交认证</span>
+                        <span *ngIf="item.checkStatus == 2">已提交认证</span>
+                    </td>
+
+                    <td>
+                        <button class="btn btn-outline-secondary" (click)="toDeleteCorp(item.id)">移除</button>&nbsp;
+
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

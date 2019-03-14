@@ -1,0 +1,103 @@
+<div class="modal-header">
+    <h4 class="modal-title">企业资料</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="col-xl-12">
+        <form (ngSubmit)="paginateQuery(null)" #searchForm="ngForm" >
+            <div class="row mb-2">
+                <div class="col-2 text-left">
+                    类目
+                </div>
+                <div class="col-4 text-left">
+                    <select [(ngModel)]="searchData.category.id" class="form-control" name="category" id="idcategory">
+                        <option value="">全部</option>
+                        <option *ngFor="let item of listCategory" [value]="item.id">{{item.name}}</option>
+                    </select>
+                </div>
+                <div class="col-2 text-left">
+                    品牌
+                </div>
+                <div class="col-4 text-left">
+                    <select [(ngModel)]="searchData.brand.id" class="form-control" name="brand" id="idbrand">
+                        <option value="">全部</option>
+                        <option *ngFor="let item of listBrand" [value]="item.id">{{item.name}}</option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="row mb-2">
+                <div class="col-2 text-left">
+                    产品名称
+                </div>
+                <div class="col-4 text-left">
+                    <input type="text" [(ngModel)]="searchData.name" class="form-control" name="name" id="idName">
+                </div>
+                <div class="col-2 text-left">
+                   产品编号
+                </div>
+                <div class="col-4 text-left">
+                    <input type="text" [(ngModel)]="searchData.code" class="form-control" name="code" id="idcode">
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-12 text-right">
+                    <button class="btn btn-primary" type="submit">查询</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-xl-12">
+        <p-table [value]="listData" [(selection)]="selectProduct" dataKey="id">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 2.25em"></th>
+                    <th>类目</th>
+                    <th>产品名称</th>
+                    <th>产品编号</th>
+                    <th>品牌</th>
+                    <th>产品规格</th>
+                    <th>产地</th>
+                    <th>年度</th>
+                    <th>计量单位</th>
+                    <th>价格</th>
+                    <th>库存</th>
+                    <th>上架日期</th>
+                    <th>状态</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr [pSelectableRow]="item">
+                    <td>
+                        <p-tableRadioButton [value]="item"></p-tableRadioButton>
+                    </td>
+                    <td>
+                        {{item.category.name}}
+                    </td>
+                    <td>{{item.name}}</td>
+                    <td >{{item.code}}</td>
+                    <td >{{item.brand}}</td>
+                    <td >{{item.spec}}</td>
+                    <td>{{item.originPlace}}</td>
+                    <td>{{item.year}}</td>
+                    <td>{{item.calcUnit}}</td>
+                    <td>{{item.price}}</td>
+                    <td>{{item.stock}}</td>
+                    <td>{{item.plantDate}}</td>
+                    <td>
+                        <span *ngIf="item.status == 0">未上架</span>
+                        <span *ngIf="item.status == 1">已上架</span>
+                        <span *ngIf="item.status == -1">已下架</span>
+                    </td>
+
+                </tr>
+            </ng-template>
+        </p-table>
+        <p-paginator [rows]="pageNav.itemsPerPage" [totalRecords]="pageNav.totalElements" (onPageChange)="paginateQuery($event)"></p-paginator>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="closeDialog()">Close</button>
+</div>

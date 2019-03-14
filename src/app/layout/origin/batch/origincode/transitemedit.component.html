@@ -1,0 +1,78 @@
+<div class="modal-header">
+    <h4 class="modal-title">编辑物流信息</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="closeDialog()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form (ngSubmit)="onSubmit()" [formGroup]="dataForm">
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="idname">名称</label>
+                <input type="text" class="form-control" formControlName="name" id="idname" placeholder="">
+            </div>
+
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <label for="inputState">省份</label>
+                <select id="inputState" formControlName="province" class="form-control">
+                    <option value="">请选择</option>
+                    <option *ngFor="let item of listProvince" [value]="item.name">{{item.name}}</option>
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="inputCity">城市</label>
+                <select id="inputCity" formControlName="city" class="form-control">
+                    <option value="">请选择</option>
+                    <option *ngFor="let item of listCity" [value]="item.name">{{item.name}}</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-3">
+                <label for="inputRegion">区域</label>
+                <select id="inputRegion" formControlName="region" class="form-control">
+                    <option value="">请选择</option>
+                    <option *ngFor="let item of listRegion" [value]="item.name">{{item.name}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-12">
+                <label for="idspec">地址</label>
+                <input type="text" class="form-control" formControlName="address" id="address" placeholder="详细地址">
+            </div>
+
+        </div>
+
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>时间</label>
+                <p-calendar  inputClass="form-control" formControlName="createDateTime" placeholder="日期" dateFormat="yy-mm-dd" dataType="string" [locale]="cn"> </p-calendar>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <p-fileUpload name="file[]" #fubauto chooseLabel="上传主图" mode="basic" url="http://api.yjf2b.com/auth/v2/open/file/upload" accept="image/*" (onUpload)="onBasicUploadAuto($event)" auto="true"></p-fileUpload>
+            </div>
+            <div class="form-group col-md-6">
+                <img *ngIf="imageUrl" [src]="imageUrl" width="100px;">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+
+            </div>
+            <div class="form-group col-md-6">
+                <button type="submit" class="btn btn-primary">保存</button>&nbsp;
+                <button type="button" (click)="closeDialog()" class="btn btn-warning">关闭</button>
+            </div>
+
+        </div>
+    </form>
+</div>

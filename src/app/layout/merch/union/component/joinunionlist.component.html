@@ -1,0 +1,44 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'联合体'" [icon]="'fa-th-list'"></app-page-header>
+    <div class="col-xl-12">
+        <form (ngSubmit)="loadData()" #searchForm="ngForm" >
+
+            <div class="row mb-2">
+                <div class="col-8 text-left">
+
+                </div>
+
+                <div class="col-4">
+                    <button class="btn btn-primary" type="submit">查询</button>&nbsp;
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-xl-12">
+        <p-table [value]="listData">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>id</th>
+                    <th>名称</th>
+                    <th>图片</th>
+                    <th>操作</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td>
+                        {{item.id}}
+                    </td>
+                    <td>
+                        {{item.name}}
+                    </td>
+                    <td><img [src]="item.imageUrl" width="100"></td>
+                    <td>
+                        <button class="btn btn-outline-secondary" (click)="toView(item.id)">详情</button>&nbsp;
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+
+    </div>
+</div>

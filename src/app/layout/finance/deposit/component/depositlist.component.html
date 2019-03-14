@@ -1,0 +1,77 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'管理企业信息'" [icon]="'fa-th-list'"></app-page-header>
+    <div class="col-xl-12">
+        <form (ngSubmit)="paginateQuery(null)" #searchForm="ngForm" >
+            <div class="row mb-2">
+                <div class="col-2 text-left">
+                    付款方式
+                </div>
+                <div class="col-4 text-left">
+                    <select [(ngModel)]="searchData.payType" class="form-control" id="idPayType">
+                        <option value="">请选择</option>
+                        <option [value]="1">支付宝</option>
+                        <option [value]="2">微信</option>
+                        <option [value]="3">转账</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-2 text-left">
+                    企业名
+                </div>
+                <div class="col-4 text-left">
+                    <input type="text" [(ngModel)]="searchData.recvCorpName" class="form-control" name="recvCorpName" id="recvCorpName">
+                </div>
+                <div class="col-2 text-left">
+
+                </div>
+                <div class="col-4">
+                    <button class="btn btn-primary" type="submit">查询</button>&nbsp;<button type="button" class="btn btn-warning" (click)="toEdit('')">增加</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-xl-12">
+        <p-table [value]="listData">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>单据类型</th>
+                    <th>单据编号</th>
+                    <th>原单号</th>
+                    <th>金额</th>
+                    <th>付款方式</th>
+                    <th>付款时间</th>
+                    <th>收款企业</th>
+                    <th>收款账号</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td>
+                        {{item.billType}}
+                    </td>
+                    <td>{{item.billCode}}</td>
+                    <td >{{item.originBillCode}}</td>
+                    <td >{{item.billMoney}}</td>
+                    <td >{{item.payType}}</td>
+                    <td>{{item.payDateTime}}</td>
+                    <td>{{item.recvCorpName}}</td>
+                    <td>{{item.recvBankAccount}}</td>
+                    <td>
+                        <span *ngIf="item.status == 0">未付</span>
+                        <span *ngIf="item.status == 1">已支付</span>
+                        <span *ngIf="item.status == 2">已确认</span>
+                    </td>
+
+                    <td>
+                        <button class="btn btn-outline-secondary" (click)="toEdit(item.id)">编辑</button>
+                        <button class="btn btn-outline-secondary" (click)="toView(item.id)">详情</button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <p-paginator [rows]="pageNav.itemsPerPage" [totalRecords]="pageNav.totalElements" (onPageChange)="paginateQuery($event)"></p-paginator>
+    </div>
+</div>

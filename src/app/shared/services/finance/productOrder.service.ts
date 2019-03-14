@@ -1,0 +1,65 @@
+/**
+ * Created by hevan on 2018/5/21.
+ */
+
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+import { Keys } from '../../common/keys';
+import { AuthService } from '../user/auth.service';
+import { Observable } from 'rxjs';
+
+
+@Injectable({
+    providedIn: 'root',
+})
+export class ProductOrderService {
+
+    constructor(private http:HttpClient, private _authService:AuthService) {
+    }
+
+    public pageQueryEx(params:any):Observable<any> {
+        return this.http.get(Keys.SERVER_URL + '/finance/v2/secure/productOrder/pageQueryEx', {params: params, headers: this._authService.getRequestHeaders(Keys.HTTP_FORM,true)})
+            .pipe(
+
+            );
+    }
+
+    public findTuanAllProduct(params:any):Observable<any> {
+        return this.http.get(Keys.SERVER_URL + '/finance/v2/secure/productOrder/findTuanAllProduct', {params: params, headers: this._authService.getRequestHeaders(Keys.HTTP_FORM,true)})
+            .pipe(
+
+            );
+    }
+
+    public find(id:any):Observable<any> {
+        return this.http.get(Keys.SERVER_URL + '/finance/v2/secure/productOrder/find/'+id, { headers: this._authService.getRequestHeaders(Keys.HTTP_FORM,true)})
+            .pipe(
+
+            );
+    }
+
+
+    public genTrans(params:any):Observable<any> {
+        return this.http.post(Keys.SERVER_URL + '/finance/v2/secure/productOrder/genTrans',null, {params:params, headers: this._authService.getRequestHeaders(Keys.HTTP_FORM,true)})
+            .pipe(
+
+            );
+    }
+
+    public updateStatus(params:any):Observable<any> {
+        return this.http.post(Keys.SERVER_URL + '/finance/v2/secure/productOrder/updateStatus',  null, {params:params,headers: this._authService.getPostHeaders(Keys.HTTP_BODY,true)})
+            .pipe(
+
+            );
+    }
+
+    public delete(params:any):Observable<any> {
+        return this.http.post(Keys.SERVER_URL + '/finance/v2/secure/productOrder/delete/'+params,null, {headers: this._authService.getPostHeaders(Keys.HTTP_BODY,true)})
+            .pipe(
+
+            );
+    }
+
+
+}

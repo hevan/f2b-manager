@@ -1,0 +1,142 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'查看批次信息'" [icon]="'fa-th-list'"></app-page-header>
+    <div class="row" *ngIf="batchCodeData">
+
+        <div class="row col-12">
+            <div class="col-4">批次名:</div>
+            <div class="col-8">{{batchCodeData.name}}</div>
+        </div>
+        <div class="row col-12">
+            <div class="col-4">批次编码:</div>
+            <div class="col-8">{{batchCodeData.batchCode}}</div>
+        </div>
+        <div class="row col-12">
+            <div class="col-4">商品名:</div>
+            <div class="col-8">{{batchCodeData.commodityName}}</div>
+        </div>
+        <div class="row col-12">
+            <div class="col-4">商品编码:</div>
+            <div class="col-8">{{batchCodeData.commodityCode}}</div>
+        </div>
+        <div class="row col-12">
+            <div class="col-4">种植基地:</div>
+            <div class="col-8">{{batchCodeData.plantBaseName}}</div>
+        </div>
+    </div>
+    <div class="row col-12 text-right">
+        <button class="btn btn-primary" (click)="toEdit()">编辑</button>&nbsp;<button class="btn btn-secondary" (click)="goBack()">返回</button>
+    </div>
+    <div class="row ">
+        <p-tabView>
+            <p-tabPanel header="批次生产物料">
+                <div class="col-xs-12">
+                <button type="button" (click)="addMaterielItem()">增加物料</button>
+                    </div>
+                <p-table [value]="listMaterial">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>类别</th>
+                            <th>产品名</th>
+                            <th>产品编号</th>
+                            <th>产品供应商</th>
+                            <th>采购员</th>
+                            <th>操作</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-item>
+                        <td >
+                            {{item.materielTypeName}}
+                        </td>
+                        <td >
+                            {{item.productName}}</td>
+                        <td >
+                            {{item.productCode}}
+                        </td>
+                        <td >
+                            {{item.supplyCorpName}}
+                        </td>
+                        <td >
+                            {{item.puchUser}}
+                        </td>
+                        <td >
+                            <button class="btn btn-outline-secondary" (click)="deleteMaterielItem(item.id)">删除</button>
+                        </td>
+                    </ng-template>
+                </p-table>
+            </p-tabPanel>
+                <p-tabPanel header="采集信息">
+                    <div class="col-xs-12">
+                        <button type="button" (click)="addCheckItem()">采集批次溯源信息</button>
+                    </div>
+
+                    <p-table [value]="listCheckItem">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>id</th>
+                                <th>类别</th>
+                                <th>描述</th>
+                                <th>操作员</th>
+                                <th>复核员</th>
+                                <th>是否显示</th>
+                                <th>操作</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-item>
+                            <tr>
+                            <td>
+                                {{item.id}}
+                            </td>
+                            <td>
+                                {{item.checkTypeName}}
+                            </td>
+                            <td> {{item.description}}</td>
+                            <td> {{item.executUser}}</td>
+                            <td> {{item.checkUser}}</td>
+                                <td> {{item.showType}}</td>
+                            <td>
+                                <button class="btn btn-outline-secondary" (click)="deleteCheckItem(item.id)">删除</button>&nbsp;
+                            </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </p-tabPanel>
+                <p-tabPanel header="采集物流">
+                    <div class="col-xs-12">
+                        <button type="button" (click)="addTransItem()">采集物流信息</button>
+                    </div>
+                    <p-table [value]="listTransItem">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>id</th>
+                                <th>城市</th>
+                                <th>地址</th>
+                                <th>时间</th>
+                                <th>图片</th>
+                                <th>操作</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-item>
+                            <tr>
+                            <td>
+                                {{item.id}}
+                            </td>
+                            <td>
+                                {{item.city}}
+                            </td>
+                            <td>
+                                {{item.address}}
+                            </td>
+                            <td>
+                                {{item.createDateTime}}
+                            </td>
+                            <td><div *ngIf="item.imageUrl"><img [src]="item.imageUrl" width="100"/></div></td>
+                            <td>
+                                <button class="btn btn-outline-secondary" (click)="deleteTransItem(item.id)">删除</button>
+                            </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </p-tabPanel>
+            </p-tabView>
+    </div>
+</div>

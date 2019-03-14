@@ -1,0 +1,56 @@
+<div [@routerTransition]>
+    <form (ngSubmit)="onSubmit()" [formGroup]="dataForm">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="idmaterielType">物料类别</label>
+                <select formControlName="materielType" class="form-control" id="idmaterielType">
+                    <option value="1">种子</option>
+                    <option value="2">植保物料</option>
+                    <option value="3">包装物料</option>
+                    <option value="4">生产物料</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="idname">物料名称</label>
+                <input type="text" class="form-control" formControlName="productName" id="idproductName" placeholder="产品名">
+            </div>
+            <div class="form-group col-6">
+                <label for="idcommodityCode">物料编码</label>
+                <input type="text" class="form-control" formControlName="productCode" id="idproductCode">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="idname">供货企业名称</label>
+                <input type="text" class="form-control" formControlName="supplyCorpName" id="idSupplyCorpName" placeholder="供货企业">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label for="iddescription">描述</label>
+                <textarea  class="form-control" formControlName="description" id="iddescription" placeholder="供货企业" rows="3"></textarea>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <p-fileUpload name="file[]" #fubauto chooseLabel="上传主图" mode="basic" url="http://api.yjf2b.com/auth/v2/open/file/upload" accept="image/*" (onUpload)="onBasicUploadAuto($event)" auto="true"></p-fileUpload>
+            </div>
+            <div class="form-group col-md-6">
+                <img *ngIf="imageUrl" [src]="imageUrl" width="100px;">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+            </div>
+            <div class="form-group col-md-6">
+                <button type="submit" class="btn btn-primary">保存</button>&nbsp;
+                <button type="button" (click)="goBack()" class="btn btn-warning">返回</button>
+            </div>
+
+        </div>
+    </form>
+
+</div>

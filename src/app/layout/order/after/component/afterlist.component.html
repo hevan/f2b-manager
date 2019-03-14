@@ -1,0 +1,19 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'售后服务订单信息'" [icon]="'fa-th-list'"></app-page-header>
+
+    <p-tabView>
+        <p-tabPanel header="审核中">
+            <app-order-after-status [status]="1"></app-order-after-status>
+        </p-tabPanel>
+        <p-tabPanel header="已审核">
+            <app-order-after-status [status]="2"></app-order-after-status>
+        </p-tabPanel>
+        <p-tabPanel header="已处理">
+            <app-order-after-status [status]="3"></app-order-after-status>
+        </p-tabPanel>
+        <p-tabPanel header="已取消">
+            <app-order-after-status [status]="9"></app-order-after-status>
+        </p-tabPanel>
+    </p-tabView>
+
+</div>

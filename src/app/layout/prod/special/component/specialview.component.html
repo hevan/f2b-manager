@@ -1,0 +1,43 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'查看产品信息'" [icon]="'fa-th-list'"></app-page-header>
+    <div class="row" *ngIf="productData">
+        <div class="row col-12">
+            <div class="col-4">类目:</div>
+            <div class="col-8" *ngIf="productData.category">{{productData.category.name}}</div>
+        </div>
+        <div class="row col-12">
+            <div class="col-4">产品名:</div>
+            <div class="col-8">{{productData.name}}</div>
+        </div>
+
+        <div class="row col-12">
+            <div class="col-4">产品编号:</div>
+            <div class="col-8">{{productData.code}}</div>
+        </div>
+
+        <div class="row col-12">
+            <div class="col-4">标签:</div>
+            <div class="col-8">{{productData.tag}}</div>
+        </div>
+        <div class="row col-12">
+            <div class="col-2">公司名:</div>
+            <div class="col-4">{{productData.corpName}}</div>
+        </div>
+        <div class="row col-12">
+            <div class="col-2">起金额:</div>
+            <div class="col-4">{{productData.startMoney}}</div>
+            <div class="col-2">截止金额:</div>
+            <div class="col-4">{{productData.endMoney}}</div>
+        </div>
+        <div class="row col-12">
+           <img [src]="productData.imageUrl">
+        </div>
+        <div class="row col-12">
+            <p [innerHtml]="productData.content"></p>
+        </div>
+    </div>
+    <div class="row col-12 text-right">
+        <button class="btn btn-primary" (click)="toEdit()">编辑</button>&nbsp;<button class="btn btn-secondary" (click)="goBack()">返回</button>
+    </div>
+
+</div>

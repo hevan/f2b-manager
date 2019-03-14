@@ -1,0 +1,19 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'产品销售明细'" [icon]="'fa-th-list'"></app-page-header>
+
+    <p-tabView>
+        <p-tabPanel header="销售明细">
+            <app-analysis-product-order-item></app-analysis-product-order-item>
+        </p-tabPanel>
+        <p-tabPanel header="发货明细">
+            <app-analysis-trans-order-item></app-analysis-trans-order-item>
+        </p-tabPanel>
+        <p-tabPanel header="售后退货明细">
+            <app-analysis-after-sale-item [afterType]="1"></app-analysis-after-sale-item>
+        </p-tabPanel>
+        <p-tabPanel header="售后换货明细">
+            <app-analysis-after-sale-item [afterType]="2"></app-analysis-after-sale-item>
+        </p-tabPanel>
+    </p-tabView>
+
+</div>

@@ -1,0 +1,118 @@
+<div class="modal-header">
+    <h4 class="modal-title">贷款申请</h4>
+</div>
+<div class="modal-body">
+    <form (ngSubmit)="onSubmit()" [formGroup]="dataForm">
+
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="idoriginBillCode">原单号</label>
+                <input type="text" class="form-control" formControlName="originBillCode" id="idoriginBillCode" placeholder="">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="idoriginBillType">原单类型</label>
+                <input type="text" class="form-control" formControlName="originBillType" id="idoriginBillType" placeholder="">
+            </div>
+            <div class="form-group col-md-4">
+                <button type="button" (click)="selectPurchase()" class="btn btn-warning">选择采购单</button>
+                <button type="button" (click)="selectFarm()" class="btn btn-warning">选择生产单</button>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label>单据编号</label>
+            </div>
+            <div class="form-group col-md-4">
+                <input type="text" class="form-control" formControlName="billCode" id="idbillCode" placeholder="请点按钮产生单据编号">
+            </div>
+            <div>
+                <button type="button" (click)="genBillCode()" class="btn btn-warning">产生编号</button>
+            </div>
+
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="idname">名称</label>
+                <input type="text" class="form-control" formControlName="name" id="idname" placeholder="订单名">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="idbillType">单据类型</label>
+                <select formControlName="billType" class="form-control" id="idbillType">
+                    <option value="">请选择</option>
+                    <option *ngFor="let item of listBillType" [value]="item.itemName">{{item.itemName}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div col-md-4>
+                <label>贷款产品</label>
+            </div>
+            <div class="form-group col-md-4">
+                <input type="text" class="form-control" readonly formControlName="productName" id="idproductName" placeholder="请点按钮选择">
+                <input type="hidden" class="form-control" formControlName="productId" id="productId">
+            </div>
+            <div class="form-group col-md-4">
+                <button type="button" (click)="selectSpecial()" class="btn btn-warning">选择贷款产品</button>
+            </div>
+        </div>
+        <div class="form-row">
+            <div col-md-4>
+                <label>担保企业</label>
+            </div>
+            <div class="form-group col-md-4">
+                <input type="text" class="form-control" readonly formControlName="assureCorpName" id="idrecvCorpName" placeholder="请点按钮选择">
+                <input type="hidden" class="form-control" formControlName="assureCorpId" id="recvCorpId">
+            </div>
+            <div class="form-group col-md-4">
+                <button type="button" (click)="selectCorp()" class="btn btn-warning">选择企业</button>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="idapplyCorpId">申请企业</label>
+                <input type="text" class="form-control" formControlName="applyCorpId" id="idapplyCorpId" placeholder="申请人">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="idapplyCorpName">申请企业名</label>
+                <input type="text" class="form-control" formControlName="applyCorpName" id="idapplyCorpName" placeholder="联系电话">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="idapplyLinkMan">申请人</label>
+                <input type="text" class="form-control" formControlName="applyLinkMan" id="idapplyLinkMan" placeholder="申请人">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="idapplyLinkTel">联系电话</label>
+                <input type="text" class="form-control" formControlName="applyLinkTel" id="idapplyLinkTel" placeholder="联系电话">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="idapplyAmount">申请金额</label>
+                <input type="text" class="form-control" formControlName="applyAmount" id="idapplyAmount" placeholder="申请金额">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>申请日期</label>
+                <p-calendar  inputClass="form-control" formControlName="billDate" placeholder="日期" dateFormat="yy-mm-dd" dataType="string" [locale]="cn"> </p-calendar>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+
+            </div>
+            <div class="form-group col-md-6">
+                <button type="submit" class="btn btn-primary">保存</button>&nbsp;
+            </div>
+        </div>
+    </form>
+</div>
+

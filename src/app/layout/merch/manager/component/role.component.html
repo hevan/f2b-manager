@@ -1,0 +1,52 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'管理岗位角色'" [icon]="'fa-th-list'"></app-page-header>
+    <div class="col-xl-12">
+        <div class="row mb-2">
+            <div class="col-8">
+            </div>
+            <div class="col-4">
+                <button class="btn btn-primary" (click)="search()">查询</button>&nbsp;<button type="button" class="btn btn-warning" (click)="toEdit(null)">增加</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-12">
+        <p-table [value]="listData">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>id</th>
+                    <th>名称</th>
+                    <th>操作</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td>
+                        {{item.id}}
+                    </td>
+                    <td>{{item.name}}</td>
+                    <td>
+                        <button class="btn btn-outline-secondary" (click)="toEdit(item)">编辑</button>&nbsp;
+                        <button class="btn btn-outline-secondary" (click)="toSet(item)">权限</button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+
+    </div>
+    <p-dialog header="角色编辑" [(visible)]="display" [modal]="true" [responsive]="true" [width]="350" [minWidth]="200" [minY]="70">
+        <form (ngSubmit)="submit()" #billForm="ngForm">
+            <div class="row">
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">名称</span>
+                    </div>
+                    <input type="text" class="form-control" [(ngModel)]="selectCorpRole.name" name="name" placeholder="角色名称">
+                </div>
+            </div>
+            <div class="row">
+                <button class="btn btn-primary mr-2" type="submit"  >保存</button>
+                <button class="btn btn-secondary" type="button" icon="fa-close" (click)="display=false">取消</button>
+            </div>
+        </form>
+    </p-dialog>
+</div>

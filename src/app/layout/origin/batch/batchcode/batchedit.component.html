@@ -1,0 +1,60 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'编辑批次信息'" [icon]="'fa-th-list'"></app-page-header>
+    <form (ngSubmit)="onSubmit()" [formGroup]="dataForm">
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="idname">名称</label>
+                <input type="text" class="form-control" formControlName="name" id="idname" placeholder="">
+            </div>
+
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-12">
+                <label for="idBatchCode">批次编码</label>
+                <input type="text" class="form-control" formControlName="batchCode" id="idBatchCode" placeholder="建立批次编码">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-4">
+                <label for="idcommodityCode">商品编码</label>
+                <input type="text" class="form-control" formControlName="commodityCode" id="idcommodityCode">
+            </div>
+            <div class="form-group col-4">
+                <label for="idcommodityName">商品名</label>
+                <input type="text" class="form-control" formControlName="commodityName" id="idcommodityName">
+            </div>
+            <div class="form-group col-md-4">
+                <button type="button" (click)="selectCommodity()" class="btn btn-warning">选择商品</button>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-4">
+                <label>种植基地</label>
+            </div>
+            <div class="form-group col-md-4">
+                <input type="text" class="form-control" readonly formControlName="plantBaseName" id="idplantBaseName" placeholder="请点按钮选择">
+                <input type="hidden" class="form-control" formControlName="plantBaseId" id="idplantBaseId">
+            </div>
+            <div class="form-group col-md-4">
+                <button type="button" (click)="selectPlant()" class="btn btn-warning">选择基地</button>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+
+            </div>
+            <div class="form-group col-md-6">
+                <button type="submit" class="btn btn-primary">保存</button>&nbsp;
+                <button type="button" (click)="goBack()" class="btn btn-warning">返回</button>
+            </div>
+
+        </div>
+    </form>
+
+
+</div>

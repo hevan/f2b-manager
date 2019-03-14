@@ -1,0 +1,273 @@
+<nav class="sidebar" [ngClass]="{sidebarPushRight: isActive, collapsed: collapsed}">
+    <div class="list-group">
+        <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-dashboard"></i>&nbsp;{{ '控制台' | translate }}
+        </a>
+
+
+        <div class="nested-menu" *ngFor="let item of treeMenu">
+            <a class="list-group-item" (click)="addExpandClass(item.data.code)">
+                <span><i [className]="'fa '+item.data.icon"></i>&nbsp; {{ item.data.name | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === item.data.code">
+                <ul class="submenu">
+                    <li *ngFor="let subE of item.subitem ">
+                        <a [routerLink]="subE.path" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i [className]="'fa fa-fw '+subE.icon"></i>&nbsp;{{ subE.name | translate }}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+
+        <!--
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('merch')">
+                <span><i class="fa fa-cog"></i>&nbsp; {{ '商户管理' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'merch'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['/merch/corp']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-shield"></i>&nbsp;{{ '企业信息' | translate }}
+                        </a>
+                    </li>
+
+                    <li>
+                        <a [routerLink]="['/merch/manage/depart']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-deaf"></i>&nbsp;{{ '部门信息' | translate }}
+                        </a>
+                    </li>
+
+                    <li>
+                        <a [routerLink]="['/merch/manage/role']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-user-o"></i>&nbsp;{{ '角色管理' | translate }}
+                        </a>
+                    </li>
+
+                    <li>
+                        <a [routerLink]="['/merch/manage/user']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-users"></i>&nbsp;{{ '人员信息' | translate }}
+                        </a>
+                    </li>
+
+
+                </ul>
+            </li>
+        </div>
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('ads')">
+                <span><i class="fa fa-archive"></i>&nbsp; {{ '配置管理' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'ads'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['/ads/pos']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-eye"></i>&nbsp;{{ '页面位置' | translate }}
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/sys/const']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-eye"></i>&nbsp;{{ '常量配置' | translate }}
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/sys/photos']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-eye"></i>&nbsp;{{ '媒体资料' | translate }}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('cms')">
+                <span><i class="fa fa-archive"></i>&nbsp; {{ '资讯中心' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'cms'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['/cms/archive']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-eye"></i>&nbsp;{{ '系统资料' | translate }}
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/cms/blog/blogcategory']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-eye"></i>&nbsp;{{ '资讯分类' | translate }}
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/cms/blog/bloglist']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-eye"></i>&nbsp;{{ '资讯' | translate }}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('prod')">
+                <span><i class="fa fa-archive"></i>&nbsp; {{ '产品管理' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'prod'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['/prod/brand']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-eye"></i>&nbsp;{{ '品牌管理' | translate }}
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/prod/product']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-gift"></i>&nbsp;{{ '产品管理' | translate }}
+                        </a>
+                    </li>
+
+                 </ul>
+             </li>
+            </div>
+
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('puch')">
+                <span><i class="fa fa-buysellads"></i>&nbsp; {{ '采购管理' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'puch'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['/puch/purchase']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-credit-card"></i>&nbsp;{{ '采购订单管理' | translate }}
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/puch/farm']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-cog"></i>&nbsp;{{ '种植采购管理' | translate }}
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/puch/recvtransit']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-check"></i>&nbsp;{{ '收货单' | translate }}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('sale')">
+                <span><i class="fa fa-heart"></i>&nbsp; {{ '销售管理' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'sale'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['/sale/salepurchase']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-gear"></i>&nbsp;{{ '销售订单管理' | translate }}
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/sale/salefarm']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-cog"></i>&nbsp;{{ '种植订单管理' | translate }}
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/sale/transit']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-check"></i>&nbsp;{{ '发货单' | translate }}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('wms')">
+                <span><i class="fa fa-cloud"></i>&nbsp; {{ '仓库管理' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'wms'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['/wms/warehouse']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-home"></i>&nbsp;{{ '仓库' | translate }}
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/wms/stock/productstock']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-database"></i>&nbsp;{{ '库存' | translate }}
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/wms/stock/enterstocklist']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-cloud-download"></i>&nbsp;{{ '入库单' | translate }}
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/wms/stock/outstocklist']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-cloud-upload"></i>&nbsp;{{ '出库单' | translate }}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('order')">
+                <span><i class="fa fa-diamond"></i>&nbsp; {{ '零售订单' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'order'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['/order/orderlist']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-home"></i>&nbsp;{{ '订单查询' | translate }}
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+        </div>
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('finance')">
+                <span><i class="fa fa-money"></i>&nbsp; {{ '财务管理' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'finance'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['/finance/deposit']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-home"></i>&nbsp;{{ '定金管理' | translate }}
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/finance/apply']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-home"></i>&nbsp;{{ '贷款服务' | translate }}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+
+        //-->
+        <div class="header-fields">
+            <a (click)="rltAndLtr()" class="list-group-item">
+                <span><i class="fa fa-arrows-h"></i>&nbsp; 左/右</span>
+            </a>
+
+            <div class="nested-menu">
+                <a class="list-group-item" (click)="addExpandClass('profile')">
+                    <span><i class="fa fa-user"></i>&nbsp; John Smith</span>
+                </a>
+                <li class="nested" [class.expand]="showMenu === 'profile'">
+                    <ul class="submenu">
+                        <li>
+                            <a href="javascript:void(0)">
+                                <span><i class="fa fa-fw fa-user"></i> {{ '个人中心' | translate }}</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a [routerLink]="['/login']" (click)="onLoggedout()">
+                                <span><i class="fa fa-fw fa-power-off"></i> {{ '登出' | translate }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+        </div>
+    </div>
+    <div class="toggle-button" [ngClass]="{collapsed: collapsed}" (click)="toggleCollapsed()">
+        <i class="fa fa-fw fa-angle-double-left"></i>&nbsp;
+        <span>点击隐藏</span>
+    </div>
+</nav>

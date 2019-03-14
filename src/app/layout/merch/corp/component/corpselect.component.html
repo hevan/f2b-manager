@@ -1,0 +1,93 @@
+<div class="modal-header">
+    <h4 class="modal-title">企业资料</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="col-xl-12">
+        <form (ngSubmit)="paginateQuery(null)" #searchForm="ngForm" >
+            <div class="row mb-2">
+                <div class="col-2 text-left">
+                    企业类别
+                </div>
+                <div class="col-4 text-left">
+                    <select [(ngModel)]="searchData.corpType.id" class="form-control" name="corpType" id="idCorpType">
+                        <option value="">全部</option>
+                        <option *ngFor="let item of listCorpType" [value]="item.id">{{item.name}}</option>
+                    </select>
+                </div>
+                <div class="col-2 text-left">
+                    所在城市
+                </div>
+                <div class="col-4 text-left">
+                    <input type="text" [(ngModel)]="searchData.city" class="form-control" name="city" id="idcity">
+                </div>
+
+            </div>
+            <div class="row mb-2">
+                <div class="col-2 text-left">
+                    企业名
+                </div>
+                <div class="col-4 text-left">
+                    <input type="text" [(ngModel)]="searchData.name" class="form-control" name="name" id="idName">
+                </div>
+                <div class="col-2 text-left">
+
+                </div>
+                <div class="col-4">
+                    <button class="btn btn-primary" type="submit">查询</button>&nbsp;
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-xl-12">
+        <p-table [value]="listData" [(selection)]="selectCorp" dataKey="id">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 2.25em"></th>
+                    <th>企业名称</th>
+                    <th>企业类型</th>
+                    <th>经营范围</th>
+                    <th>城市</th>
+                    <th>地址</th>
+                    <th>联系人</th>
+                    <th>联系电话</th>
+                    <th>创建日期</th>
+                    <th>状态</th>
+
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr [pSelectableRow]="item">
+
+                    <td>
+                        <p-tableRadioButton [value]="item"></p-tableRadioButton>
+                    </td>
+
+                    <td>
+                        {{item.name}}
+                    </td>
+                    <td>{{item.corpType.name}}</td>
+                    <td >{{item.busiScope}}</td>
+                    <td >{{item.city}}</td>
+                    <td >{{item.address}}</td>
+                    <td>{{item.linkMan}}</td>
+                    <td>{{item.linkTel}}</td>
+                    <td>{{item.createDate}}</td>
+                    <td>
+                        <span *ngIf="item.checkStatus == 0">未审核</span>
+                        <span *ngIf="item.checkStatus == 1">已提交认证</span>
+                        <span *ngIf="item.checkStatus == 2">已提交认证</span>
+                    </td>
+
+
+                </tr>
+            </ng-template>
+        </p-table>
+        <p-paginator [rows]="pageNav.itemsPerPage" [totalRecords]="pageNav.totalElements" (onPageChange)="paginateQuery($event)"></p-paginator>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="closeDialog()">Close</button>
+</div>

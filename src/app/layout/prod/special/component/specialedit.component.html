@@ -1,0 +1,100 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'编辑产品信息'" [icon]="'fa-th-list'"></app-page-header>
+    <form (ngSubmit)="onSubmit()" [formGroup]="dataForm">
+
+        <div class="form-group" formGroupName="category">
+            <label for="idCategory">类目</label>
+            <select formControlName="id" class="form-control" id="idCategory">
+                <option value="">请选择</option>
+                <option *ngFor="let item of listCategory" [value]="item.id">{{item.name}}</option>
+            </select>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="idname">名称</label>
+                <input type="text" class="form-control" formControlName="name" id="idname" placeholder="产品名">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="idcode">编号</label>
+                <input type="text" class="form-control" formControlName="code" id="idcode" placeholder="代码">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label for="idtag">标签</label>
+                <input type="text" class="form-control" formControlName="tag" id="idtag" placeholder="原产地 绿色 有机 基地">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="idStartMoney">可申请金额</label>
+                <input type="text" class="form-control" formControlName="startMoney" id="idStartMoney" placeholder="">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="idEndMoney">截止金额</label>
+                <input type="text" class="form-control" formControlName="endMoney" id="idendMoney" placeholder="">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <p-fileUpload name="file[]" #fubauto chooseLabel="上传主图" mode="basic" url="http://api.yjf2b.com/auth/v2/open/file/upload" accept="image/*" (onUpload)="onBasicUploadAuto($event)" auto="true"></p-fileUpload>
+            </div>
+            <div class="form-group col-md-6">
+                <img *ngIf="imageUrl" [src]="imageUrl" width="100px;">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label for="idvedioUrl">视频地址</label>
+                <input type="text" class="form-control" formControlName="videoUrl" id="idvedioUrl" placeholder="填写视频地址">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-12">
+            <label for="iddescription">描述</label>
+            <input type="text" class="form-control" formControlName="description" id="iddescription">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+
+            </div>
+            <div class="form-group col-md-6">
+                <button type="submit" class="btn btn-primary">保存</button>&nbsp;
+                <button type="button" (click)="goBack()" class="btn btn-warning">返回</button>
+            </div>
+
+        </div>
+    </form>
+    <div class="col-12">
+        <p-tabView>
+            <p-tabPanel header="产品详情">
+                <form  #editForm="ngForm">
+                <ckeditor
+                        [editor]="Editor"
+                        [(ngModel)]="ckeditorContent"
+                        [config]="custConfig"
+                        name="ckeditorContent">
+
+                </ckeditor>
+                </form>
+            </p-tabPanel>
+
+
+        </p-tabView>
+    </div>
+    <p-dialog header="图片文件" [(visible)]="showFiles" [modal]="true" [responsive]="true" [width]="600" [minWidth]="200" [minY]="70">
+        <div class="row">
+            <div class="form-group col-md-6">
+                <p-fileUpload name="file[]" #fubauto chooseLabel="上传主图" mode="basic" url="http://api.yjf2b.com/auth/v2/open/common/file/upload" accept="image/*" (onUpload)="onCkeditorUpload($event)" auto="true"></p-fileUpload>
+            </div>
+            <div class="form-group col-md-6">
+                <img *ngIf="detailImageUrl" [src]="detailImageUrl" width="100px;">
+            </div>
+        </div>
+    </p-dialog>
+</div>

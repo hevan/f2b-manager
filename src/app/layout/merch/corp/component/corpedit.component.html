@@ -1,0 +1,83 @@
+<div class="modal-header">
+    <h4 class="modal-title">企业资料</h4>
+</div>
+<div class="modal-body">
+    <form (ngSubmit)="onSubmit()" [formGroup]="dataForm">
+
+        <div class="form-group" formGroupName="corpType">
+            <label for="idCorpType">企业类别</label>
+            <select formControlName="id" class="form-control" id="idCorpType">
+                <option value="">请选择</option>
+                <option *ngFor="let item of listCorpType" [value]="item.id">{{item.name}}</option>
+            </select>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="idname">企业</label>
+                <input type="text" class="form-control" formControlName="name" id="idname" placeholder="企业名">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="idorganizationCode">组织机构代码</label>
+                <input type="text" class="form-control" formControlName="organizationCode" id="idorganizationCode" placeholder="组织机构代码">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <p-fileUpload name="file[]" #fubauto chooseLabel="上传证照" mode="basic" url="http://api.yjf2b.com/auth/v2/open/file/upload" accept="image/*" (onUpload)="onBasicUploadAuto($event)" auto="true"></p-fileUpload>
+            </div>
+            <div class="form-group col-md-6">
+                <img *ngIf="certImageUrl" [src]="certImageUrl" width="100px;">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <label for="inputState">省份</label>
+                <select id="inputState" formControlName="province" class="form-control">
+                    <option value="">请选择</option>
+                    <option *ngFor="let item of listProvince" [value]="item.name">{{item.name}}</option>
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="inputCity">城市</label>
+                <select id="inputCity" formControlName="city" class="form-control">
+                    <option value="">请选择</option>
+                    <option *ngFor="let item of listCity" [value]="item.name">{{item.name}}</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="idaddress">地址</label>
+                <input type="text" class="form-control" formControlName="address" id="idaddress">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="idbusiscope">经营范围</label>
+            <input type="text" class="form-control" formControlName="busiScope" id="idbusiscope">
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="idlinkman">联系人</label>
+                <input type="text" class="form-control" formControlName="linkMan" id="idlinkman">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="idlinkTel">联系电话</label>
+                <input type="text" class="form-control" formControlName="linkTel" id="idlinkTel">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="iddescription">描述</label>
+            <input type="text" class="form-control" formControlName="description" id="iddescription">
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+
+            </div>
+            <div class="form-group col-md-6">
+                <button type="submit" class="btn btn-primary">保存</button>&nbsp;
+            </div>
+        </div>
+
+    </form>
+</div>
+

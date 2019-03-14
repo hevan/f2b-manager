@@ -1,0 +1,66 @@
+<div class="modal-header">
+    <h4 class="modal-title">编辑生产检测资料</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="closeDialog()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form (ngSubmit)="onSubmit()" [formGroup]="dataForm">
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="idname">名称</label>
+                <input type="text" class="form-control" formControlName="name" id="idname" placeholder="">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="idType">类别</label>
+                <select id="inputType" formControlName="type" class="form-control" idType>
+                    <option value="1">详情信息</option>
+                    <option value="2">种植标准</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <p-fileUpload name="file[]" #fubauto chooseLabel="上传主图" mode="basic" url="http://api.yjf2b.com/auth/v2/open/file/upload" accept="image/*" (onUpload)="onBasicUploadAuto($event)" auto="true"></p-fileUpload>
+            </div>
+            <div class="form-group col-md-6">
+                <img *ngIf="imageUrl" [src]="imageUrl" width="100px;">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+
+            </div>
+            <div class="form-group col-md-6">
+                <button type="submit" class="btn btn-primary">保存</button>&nbsp;
+                <button type="button" (click)="closeDialog()" class="btn btn-warning">关闭</button>
+            </div>
+
+        </div>
+    </form>
+    <div class="col-12">
+        <form  #editForm="ngForm">
+            <ckeditor [editor]="Editor"
+                    [(ngModel)]="ckeditorContent"
+                    [config]="custConfig"
+                    name="ckeditorName">
+            </ckeditor>
+        </form>
+    </div>
+    <p-dialog header="图片文件" [(visible)]="showFiles" [modal]="true" [responsive]="true" [width]="600" [minWidth]="200" [minY]="70">
+        <div class="row">
+            <div class="form-group col-md-6">
+                <p-fileUpload name="file[]" #fubauto chooseLabel="上传主图" mode="basic" url="http://api.yjf2b.com/auth/v2/open/file/upload" accept="image/*" (onUpload)="onCkeditorUpload($event)" auto="true"></p-fileUpload>
+            </div>
+            <div class="form-group col-md-6">
+                <img *ngIf="detailImageUrl" [src]="detailImageUrl" width="100px;">
+            </div>
+        </div>
+    </p-dialog>
+</div>

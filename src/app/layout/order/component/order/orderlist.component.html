@@ -1,0 +1,94 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'零售订单信息'" [icon]="'fa-th-list'"></app-page-header>
+    <div class="col-xl-12">
+        <form (ngSubmit)="paginateQuery(null)" >
+            <div class="row mb-2">
+                <div class="col-2 text-left">
+                    编号
+                </div>
+                <div class="col-4 text-left">
+                    <input type="text" [(ngModel)]="searchData.orderNo" class="form-control" name="orderNo" id="idbillCode">
+                </div>
+                <div class="col-2 text-left">
+                    产品名称
+                </div>
+                <div class="col-4 text-left">
+                    <input type="text" [(ngModel)]="searchData.prodName" class="form-control" name="prodName" id="idName">
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-2 text-left">
+                    订单状态
+                </div>
+                <div class="col-4 text-left">
+                    <select [(ngModel)]="searchData.status" name="status" class="form-control" id="idStatus">
+                        <option value="">请选择</option>
+                        <option value="1">未支付</option>
+                        <option value="2">已支付</option>
+                        <option value="3">已发货</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-2 text-left">
+                    日期范围
+                </div>
+                <div class="col-8 text-left">
+                    <p-calendar [(ngModel)]="searchData.startDate" showButtonBar="true" dataType="string" name="startDate"></p-calendar>至
+                    <p-calendar [(ngModel)]="searchData.endDate" showButtonBar="true" dataType="string" name="endDate"></p-calendar>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-12 text-right">
+                    <button class="btn btn-primary" type="submit">查询</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-xl-12">
+        <p-table [value]="listData">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>订单编号</th>
+                    <th>订单日期</th>
+                    <th>支付方式</th>
+                    <th>订单金额</th>
+                    <th>订单数量</th>
+                    <th>订单手机号</th>
+                    <th>联系人</th>
+                    <th>收货城市</th>
+                    <th>订单状态</th>
+                    <th>操作</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td>
+                        {{item.orderNo}}
+                    </td>
+                    <td>{{item.createdDate}}</td>
+                    <td >
+                        <span *ngIf="item.payType ==1">支付宝</span>
+                        <span *ngIf="item.payType == 2">微信</span>
+                    </td>
+                    <td >{{item.amount}}</td>
+                    <td >{{item.totalCount}}</td>
+                    <td>{{item.userMobile}}</td>
+                    <td>{{item.address.linkName}}</td>
+                    <td>{{item.address.city}}</td>
+                    <td>
+                        <span *ngIf="item.status < 2">未支付</span>
+                        <span *ngIf="item.status == 2">已支付</span>
+                        <span *ngIf="item.status == 3">已发货</span>
+                    </td>
+                    <td>
+                        <button class="btn btn-outline-secondary" (click)="toView(item)">查看</button>&nbsp;
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <p-paginator [rows]="pageNav.itemsPerPage" [totalRecords]="pageNav.totalElements" (onPageChange)="paginateQuery($event)"></p-paginator>
+    </div>
+</div>

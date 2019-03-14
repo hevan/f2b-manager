@@ -1,0 +1,78 @@
+<div class="modal-header">
+    <h4 class="modal-title">选择仓库</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="col-xl-12">
+        <form (ngSubmit)="paginateQuery(null)" #searchForm="ngForm" >
+            <div class="row mb-2">
+                <div class="col-2 text-left">
+                    仓库类别
+                </div>
+                <div class="col-4 text-left">
+                    <select [(ngModel)]="searchData.type" class="form-control" name="type" id="idType">
+                        <option value="">全部</option>
+                        <option *ngFor="let item of listType" [value]="item">{{item}}</option>
+                    </select>
+                </div>
+                <div class="col-2 text-left">
+                    所在城市
+                </div>
+                <div class="col-4 text-left">
+                    <input type="text" [(ngModel)]="searchData.city" class="form-control" name="city" id="idcity">
+                </div>
+
+            </div>
+            <div class="row mb-2">
+                <div class="col-2 text-left">
+                    企业名
+                </div>
+                <div class="col-4 text-left">
+                    <input type="text" [(ngModel)]="searchData.name" class="form-control" name="name" id="idName">
+                </div>
+                <div class="col-2 text-left">
+
+                </div>
+                <div class="col-4">
+                    <button class="btn btn-primary" type="submit">查询</button>&nbsp;
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-xl-12">
+        <p-table [value]="listData" [(selection)]="selectWarehouse" dataKey="id">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 2.25em"></th>
+                    <th>仓库名称</th>
+                    <th>仓库类型</th>
+                    <th>城市</th>
+                    <th>地址</th>
+                    <th>联系人</th>
+                    <th>联系电话</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr [pSelectableRow]="item">
+                    <td>
+                        <p-tableRadioButton [value]="item"></p-tableRadioButton>
+                    </td>
+                    <td>
+                        {{item.name}}
+                    </td>
+                    <td>{{item.type}}</td>
+                    <td >{{item.city}}</td>
+                    <td >{{item.address}}</td>
+                    <td>{{item.linkMan}}</td>
+                    <td>{{item.linkTel}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <p-paginator [rows]="pageNav.itemsPerPage" [totalRecords]="pageNav.totalElements" (onPageChange)="paginateQuery($event)"></p-paginator>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="closeDialog()">Close</button>
+</div>

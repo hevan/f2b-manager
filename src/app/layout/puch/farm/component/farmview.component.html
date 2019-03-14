@@ -1,0 +1,108 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'查看订单信息'" [icon]="'fa-th-list'"></app-page-header>
+    <div class="row" *ngIf="purchaseData">
+        <div class="row col-12">
+            <div class="col-4">订单类型:</div>
+            <div class="col-8">{{purchaseData.billType}}</div>
+        </div>
+        <div class="row col-12">
+            <div class="col-4">订单编号:</div>
+            <div class="col-8">{{purchaseData.billCode}}</div>
+        </div>
+        <div class="row col-12">
+            <div class="col-4">日期:</div>
+            <div class="col-8">{{purchaseData.billDate}}</div>
+        </div>
+
+        <div class="row col-12">
+            <div class="col-4">名称:</div>
+            <div class="col-8">{{purchaseData.name}}</div>
+        </div>
+
+        <div class="row col-12">
+            <div class="col-4">供货企业:</div>
+            <div class="col-8">{{purchaseData.supplyCorpName}}</div>
+        </div>
+
+        <div class="row col-12">
+            <div class="col-2">供货联系人:</div>
+            <div class="col-4">{{purchaseData.supplyLinkMan}}</div>
+            <div class="col-2">供货电话:</div>
+            <div class="col-4">{{purchaseData.supplyLinkTel}}</div>
+        </div>
+        <div class="row col-12">
+            <div class="col-4">采购企业:</div>
+            <div class="col-8">{{purchaseData.purchaseCorpName}}</div>
+        </div>
+        <div class="row col-12">
+            <div class="col-2">采购联系人:</div>
+            <div class="col-4">{{purchaseData.purchaseLinkMan}}</div>
+            <div class="col-2">采购电话:</div>
+            <div class="col-4">{{purchaseData.purchaseLinkTel}}</div>
+        </div>
+
+        <div class="row col-12">
+            <div class="col-4">采购总量:</div>
+            <div class="col-8">{{purchaseData.totalCount}}</div>
+        </div>
+        <div class="row col-12">
+            <div class="col-2">采购总量:</div>
+            <div class="col-4">{{purchaseData.totalCount}}</div>
+            <div class="col-2">采购总额:</div>
+            <div class="col-4">{{purchaseData.amount}}</div>
+        </div>
+        <div class="row col-12">
+            <div class="col-2">订金:</div>
+            <div class="col-4">{{purchaseData.depositMoney}}</div>
+            <div class="col-2">状态:</div>
+            <div class="col-4">
+                <span *ngIf="item.status == 0">未确定</span>
+                <span *ngIf="item.status == 1">已提交</span>
+                <span *ngIf="item.status == 2">已确定</span>
+                <span *ngIf="item.status == 3">已交订金</span>
+                <span *ngIf="item.status == 5">发货中</span>
+                <span *ngIf="item.status == 9">已完成</span>
+                <span *ngIf="item.status == -1">已取消</span>
+            </div>
+        </div>
+    </div>
+    <div class="row col-12 text-right">
+        <button class="btn btn-primary" (click)="toEdit()">编辑</button>&nbsp;<button class="btn btn-secondary" (click)="goBack()">返回</button>
+    </div>
+    <div class="col-12">
+        <p-table [value]="listItem">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>产品ID</th>
+                    <th>产品编码</th>
+                    <th>产品名</th>
+                    <th>产品图片</th>
+                    <th>产品SKU</th>
+                    <th>计量单位</th>
+                    <th>单价</th>
+                    <th>采购数量</th>
+                    <th>合计</th>
+                    <th>备注</th>
+                    <th>操作</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td>{{item.prodId}}</td>
+                    <td>{{item.prodCode}}</td>
+                    <td>{{item.prodName}}</td>
+                    <td ><img [src]="item.imageUrl" width="100"></td>
+                    <td>{{item.sku}}</td>
+                    <td>{{item.calcUnit}}</td>
+                    <td>{{item.price}}</td>
+                    <td>{{item.qty}}</td>
+                    <td>{{item.amount}}</td>
+                    <td>{{item.description}}</td>
+                    <td>
+                        <button class="btn btn-outline-secondary" (click)="toEditItem(item.id)">修改数量</button>&nbsp;
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

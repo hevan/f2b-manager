@@ -1,0 +1,75 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'查看企业付款信息'" [icon]="'fa-th-list'"></app-page-header>
+    <div class="row" *ngIf="depositData">
+        <div class="row col-12">
+            <div class="col-4">原单类别:</div>
+            <div class="col-8">{{depositData.originBillType}}</div>
+        </div>
+        <div class="row col-12">
+            <div class="col-4">原单号:</div>
+            <div class="col-8">{{depositData.originBillCode}}</div>
+        </div>
+        <div class="row col-12">
+            <div class="col-4">单据类型:</div>
+            <div class="col-8">{{depositData.billType}}</div>
+        </div>
+        <div class="row col-12">
+            <div class="col-4">单据号:</div>
+            <div class="col-8">{{depositData.billCode}}</div>
+        </div>
+
+        <div class="row col-12">
+            <div class="col-4">支付名称</div>
+            <div class="col-8">{{depositData.name}}</div>
+        </div>
+        <div class="row col-12">
+            <div class="col-4">金额:</div>
+            <div class="col-8">{{depositData.billMoney}}</div>
+        </div>
+
+        <div class="row col-12">
+            <div class="col-4">付款方式:</div>
+            <div class="col-8">{{depositData.payType}}</div>
+        </div>
+
+        <div class="row col-12">
+            <div class="col-4">付款时间:</div>
+            <div class="col-8">{{depositData.payDateTime}}</div>
+        </div>
+
+        <div class="row col-12">
+            <div class="col-4">付款流水号:</div>
+            <div class="col-8">{{depositData.payTransNo}}</div>
+        </div>
+
+        <div class="row col-12">
+            <div class="col-4">收款企业:</div>
+            <div class="col-8">{{depositData.recvCorpName}}</div>
+        </div>
+
+        <div class="row col-12">
+            <div class="col-4">收款账号:</div>
+            <div class="col-8">{{depositData.recvBankAccount}}</div>
+        </div>
+
+        <div class="row col-12">
+            <div class="col-4">收款银行:</div>
+            <div class="col-8">{{depositData.recvBank}}</div>
+        </div>
+
+        <div class="row col-12">
+            <div class="col-4">状态:</div>
+            <div class="col-8">
+                <span *ngIf="depositData.status == 0">未支付</span>
+                <span *ngIf="depositData.status == 1">已支付</span>
+            </div>
+        </div>
+
+        <div class="row col-12">
+           <img [src]="depositData.payTrasnImage">
+        </div>
+    </div>
+    <div class="row col-12 text-right">
+        <button class="btn btn-primary" (click)="toEdit()">编辑</button>&nbsp;<button class="btn btn-secondary" (click)="goBack()">返回</button>
+    </div>
+</div>

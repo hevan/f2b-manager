@@ -1,0 +1,91 @@
+<div class="modal-header">
+    <h4 class="modal-title">企业资料</h4>
+</div>
+<div class="modal-body">
+    <form (ngSubmit)="onSubmit()" [formGroup]="dataForm">
+
+        <div class="form-group">
+            <label for="idCorpType">仓库类别</label>
+            <select formControlName="type" class="form-control" id="idtype">
+                <option value="">请选择</option>
+                <option *ngFor="let item of listType" [value]="item">{{item}}</option>
+            </select>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="idname">仓库名称</label>
+                <input type="text" class="form-control" formControlName="name" id="idname" placeholder="仓库名称">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="idCode">仓库编码</label>
+                <input type="text" class="form-control" formControlName="code" id="idCode" placeholder="代码">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <p-fileUpload name="file[]" #fubauto chooseLabel="上传仓库图片" mode="basic" url="http://api.yjf2b.com/auth/v2/open/common/file/upload" accept="image/*" (onUpload)="onBasicUploadAuto($event)" auto="true"></p-fileUpload>
+            </div>
+            <div class="form-group col-md-6">
+                <img *ngIf="imageUrl" [src]="imageUrl" width="100px;">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <label for="inputState">省份</label>
+                <select id="inputState" formControlName="province" class="form-control">
+                    <option value="">请选择</option>
+                    <option *ngFor="let item of listProvince" [value]="item.name">{{item.name}}</option>
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="inputCity">城市</label>
+                <select id="inputCity" formControlName="city" class="form-control">
+                    <option value="">请选择</option>
+                    <option *ngFor="let item of listCity" [value]="item.name">{{item.name}}</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="idaddress">地址</label>
+                <input type="text" class="form-control" formControlName="address" id="idaddress">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="idbusiscope">仓库范围</label>
+            <input type="text" class="form-control" formControlName="busiScope" id="idbusiscope">
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="idlinkman">联系人</label>
+                <input type="text" class="form-control" formControlName="linkMan" id="idlinkman">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="idlinkTel">联系电话</label>
+                <input type="text" class="form-control" formControlName="linkTel" id="idlinkTel">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="idarea">面积</label>
+                <input type="text" class="form-control" formControlName="area" id="idarea">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="idcapacity">容量</label>
+                <input type="text" class="form-control" formControlName="capacity" id="idcapacity">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+
+            </div>
+            <div class="form-group col-md-6">
+                <button type="submit" class="btn btn-primary">保存</button>&nbsp;
+                <button type="button" class="btn btn-secondary" (click)="goBack()">返回</button>;
+            </div>
+        </div>
+
+    </form>
+</div>
+

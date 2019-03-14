@@ -1,0 +1,14 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'发货单信息'" [icon]="'fa-th-list'"></app-page-header>
+
+    <p-tabView>
+        <p-tabPanel header="待发货">
+            <app-order-trans-status [status]="1"></app-order-trans-status>
+        </p-tabPanel>
+        <p-tabPanel header="已发货">
+            <app-order-trans-status [status]="2"></app-order-trans-status>
+        </p-tabPanel>
+
+    </p-tabView>
+
+</div>

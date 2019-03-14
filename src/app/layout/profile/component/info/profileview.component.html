@@ -1,0 +1,29 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'查看个人信息'" [icon]="'fa-th-list'"></app-page-header>
+    <div class="row" *ngIf="userToken">
+        <div class="row col-12">
+            <div class="col-4">手机号码:</div>
+            <div class="col-8">{{userToken.mobile}}</div>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="userProfile">
+        <div class="row col-12">
+            <div class="col-4">姓名:</div>
+            <div class="col-8">{{userProfile.realName}}</div>
+        </div>
+
+        <div class="row col-12">
+            <div class="col-4">证件号码:</div>
+            <div class="col-8">{{userProfile.idCardNo}}</div>
+        </div>
+
+        <div class="row col-12">
+            <div class="col-4">城市:</div>
+            <div class="col-8">{{userProfile.city}}</div>
+        </div>
+    </div>
+    <div class="row col-12 text-right">
+        <button class="btn btn-secondary" (click)="goBack()">返回</button>
+    </div>
+</div>

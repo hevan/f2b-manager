@@ -1,0 +1,95 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'管理产品信息'" [icon]="'fa-th-list'"></app-page-header>
+    <div class="col-xl-12">
+        <form (ngSubmit)="paginateQuery(null)" >
+            <div class="row mb-2">
+                <div class="col-2 text-left">
+                    订单类型
+                </div>
+                <div class="col-4 text-left">
+                    <select [(ngModel)]="searchData.billType" class="form-control" name="billType" id="idbillType">
+                        <option value="">请选择</option>
+                        <option *ngFor="let item of listBillType" [value]="item.itemCode">{{item.itemName}}</option>
+                    </select>
+                </div>
+                <div class="col-2 text-left">
+                    编号
+                </div>
+                <div class="col-4 text-left">
+                    <input type="text" [(ngModel)]="searchData.billCode" class="form-control" name="billCode" id="idbillCode">
+                </div>
+
+            </div>
+            <div class="row mb-2">
+                <div class="col-2 text-left">
+                    订单名称
+                </div>
+                <div class="col-4 text-left">
+                    <input type="text" [(ngModel)]="searchData.name" class="form-control" name="name" id="idName">
+                </div>
+                <div class="col-2 text-left">
+                    供货企业
+                </div>
+                <div class="col-4 text-left">
+                    <input type="text" [(ngModel)]="searchData.supplyCorpName" class="form-control" name="supplyCorpName" id="idsupplyCorpName">
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-2 text-left">
+                    日期范围
+                </div>
+                <div class="col-8 text-left">
+                    <p-calendar [(ngModel)]="searchData.startDate" showButtonBar="true" dataType="string" name="startDate"></p-calendar>至
+                    <p-calendar [(ngModel)]="searchData.endDate" showButtonBar="true" dataType="string" name="endDate"></p-calendar>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-12 text-right">
+                    <button class="btn btn-primary" type="submit">查询</button>&nbsp;<button type="button" class="btn btn-warning" (click)="toEdit('')">增加</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-xl-12">
+        <p-table [value]="listData">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>单据编号</th>
+                    <th>单据类型</th>
+                    <th>发货日期</th>
+                    <th>收货企业</th>
+                    <th>收货地址</th>
+                    <th>总量</th>
+                    <th>金额</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td>
+                        {{item.billCode}}
+                    </td>
+                    <td >{{item.billType}}</td>
+                    <td>{{item.createDate}}</td>
+                    <td >{{item.purchCorpName}}</td>
+                    <td >{{item.address}}</td>
+                    <td >{{item.totalCount}}</td>
+                    <td>{{item.amount}}</td>
+                    <td>
+                        <span *ngIf="item.status == 0">未确定</span>
+                        <span *ngIf="item.status == 1">已确定</span>
+                        <span *ngIf="item.status == 2">已接收</span>
+                    </td>
+                    <td>
+
+                        <button class="btn btn-outline-secondary" (click)="toEdit(item.id)">编辑</button>&nbsp;
+                        <button class="btn btn-outline-secondary" (click)="toView(item.id)">详情</button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <p-paginator [rows]="pageNav.itemsPerPage" [totalRecords]="pageNav.totalElements" (onPageChange)="paginateQuery($event)"></p-paginator>
+    </div>
+</div>

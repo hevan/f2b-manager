@@ -1,0 +1,157 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'编辑产品信息'" [icon]="'fa-th-list'"></app-page-header>
+    <form (ngSubmit)="onSubmit()" [formGroup]="dataForm">
+
+        <div class="form-group" formGroupName="category">
+            <label for="idCategory">类目</label>
+            <select formControlName="id" class="form-control" id="idCategory">
+                <option value="">请选择</option>
+                <option *ngFor="let item of listCategory" [value]="item.id">{{item.name}}</option>
+            </select>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="idname">名称</label>
+                <input type="text" class="form-control" formControlName="name" id="idname" placeholder="产品名">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="idorganizationCode">编号</label>
+                <input type="text" class="form-control" formControlName="code" id="idcode" placeholder="代码">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6" formGroupName="brand">
+                <label for="idbrand">品牌</label>
+                <select formControlName="id" class="form-control" id="idbrand">
+                    <option value="">请选择</option>
+                    <option *ngFor="let item of listBrand" [value]="item.id">{{item.name}}</option>
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="idoriginPlace">产地</label>
+                <input type="text" class="form-control" formControlName="originPlace" id="idoriginPlace" placeholder="产地">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="idspec">规格</label>
+                <input type="text" class="form-control" formControlName="spec" id="idspec" placeholder="规格">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="idtag">标签</label>
+                <input type="text" class="form-control" formControlName="tag" id="idtag" placeholder="原产地 绿色 有机 基地">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="idproductType">类别</label>
+                <select id="idproductType" formControlName="productType" class="form-control">
+                    <option value="1">零售</option>
+                    <option value="2">批发</option>
+                    <option value="3">农牧认养</option>
+                </select>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="idBookingType">是否预售</label>
+                <select id="idBookingType" formControlName="bookingType" class="form-control">
+                    <option value="0">现货</option>
+                    <option value="1">预售</option>
+                </select>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="idyear">年度</label>
+                <input type="input" id="idyear" formControlName="year" class="form-control">
+            </div>
+        </div>
+        <div class="form-row" *ngIf="f.productType.value == 3">
+            <div class="form-group col-4">
+                <label for="idIncome">预计收益</label>
+                <input type="input" id="idIncome" formControlName="incomeRate" class="form-control">
+            </div>
+            <div class="form-group col-4">
+                <label for="idIncome">开始日期</label>
+                <p-calendar   formControlName="startDate"  dateFormat="yy-mm-dd" dataType="string" > </p-calendar>
+            </div>
+            <div class="form-group col-4">
+                <label for="idIncome">结束日期</label>
+                <p-calendar   formControlName="endDate"  dateFormat="yy-mm-dd" dataType="string" > </p-calendar>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="idprice">价格</label>
+                <input type="text" class="form-control" formControlName="price" id="idprice" placeholder="0.00">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="idmarketprice">市场价</label>
+                <input type="text" class="form-control" formControlName="marketPrice" id="idmarketprice" placeholder="原产地 绿色 有机 基地">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="idCalcUnit">计量单位</label>
+                <input type="text" class="form-control" formControlName="calcUnit" id="idCalcUnit" placeholder="吨／盒，斤">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="idstock">库存</label>
+                <input  type="text" class="form-control" formControlName="stock" id="idstock">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="idpublishDate">发布日期</label>
+                <p-calendar   formControlName="publishDate" placeholder="日期" dateFormat="yy-mm-dd" dataType="string" > </p-calendar>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="idsaledCount">销量</label>
+                <input  type="text" class="form-control" formControlName="saledCount" id="idsaledCount">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="idsortNum">排序号</label>
+                <input  type="text" class="form-control" formControlName="sortNum" id="idsortNum">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <p-fileUpload name="file[]" #fubauto chooseLabel="上传主图" mode="basic" url="http://api.yjf2b.com/auth/v2/open/file/upload" accept="image/*" (onUpload)="onBasicUploadAuto($event)" auto="true"></p-fileUpload>
+            </div>
+            <div class="form-group col-md-6">
+                <img *ngIf="imageUrl" [src]="imageUrl" width="100px;">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label for="idvedioUrl">视频地址</label>
+                <input type="text" class="form-control" formControlName="videoUrl" id="idvedioUrl" placeholder="填写视频地址">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-12">
+            <label for="iddescription">描述</label>
+            <input type="text" class="form-control" formControlName="description" id="iddescription">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+
+            </div>
+            <div class="form-group col-md-6">
+                <button type="submit" [disabled]="submitted" class="btn btn-primary">保存</button>&nbsp;
+                <button type="button" (click)="goBack()" class="btn btn-warning">返回</button>
+            </div>
+
+        </div>
+    </form>
+    <div class="col-12">
+
+                <form  #editForm="ngForm">
+                    <ckeditor [editor]="Editor"
+                              [(ngModel)]="ckeditorContent"
+                              [config]="custConfig"
+                              name="ckeditorID">
+                    </ckeditor>
+                </form>
+
+    </div>
+</div>

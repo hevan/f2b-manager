@@ -1,0 +1,36 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'编辑联合体信息'" [icon]="'fa-th-list'"></app-page-header>
+    <form (ngSubmit)="onSubmit()" [formGroup]="dataForm">
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="idname">名称</label>
+                <input type="text" class="form-control" formControlName="name" id="idname" placeholder="">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <p-fileUpload name="file[]" #fubauto chooseLabel="上传图片" mode="basic" url="http://api.yjf2b.com/auth/v2/open/file/upload" accept="image/*" (onUpload)="onBasicUploadAuto($event)" auto="true"></p-fileUpload>
+            </div>
+            <div class="form-group col-md-6">
+                <img *ngIf="imageUrl" [src]="imageUrl" width="100px;">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="iddescrption">描述</label>
+                <textarea rows="3" class="form-control" formControlName="description" id="iddescrption" placeholder=""></textarea>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+
+            </div>
+            <div class="form-group col-md-6">
+                <button type="submit" class="btn btn-primary">保存</button>&nbsp;
+                <button type="button" (click)="goBack()" class="btn btn-warning">返回</button>
+            </div>
+        </div>
+    </form>
+</div>

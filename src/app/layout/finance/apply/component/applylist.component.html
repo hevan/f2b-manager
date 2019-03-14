@@ -1,0 +1,60 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'管理企业信息'" [icon]="'fa-th-list'"></app-page-header>
+    <div class="col-xl-12">
+        <form (ngSubmit)="paginateQuery(null)" #searchForm="ngForm" >
+            <div class="row mb-2">
+                <div class="col-2 text-left">
+                    申请代码
+                </div>
+                <div class="col-4 text-left">
+                    <input type="text" [(ngModel)]="searchData.billCode" class="form-control" name="billCode" id="idbillCode">
+                </div>
+                <div class="col-2 text-left">
+
+                </div>
+                <div class="col-4">
+                    <button class="btn btn-primary" type="submit">查询</button>&nbsp;<button type="button" class="btn btn-warning" (click)="toEdit('')">增加</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-xl-12">
+        <p-table [value]="listData">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>单据类型</th>
+                    <th>单据编号</th>
+                    <th>原单号</th>
+                    <th>申请金额</th>
+                    <th>产品名</th>
+                    <th>申请时间</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td>
+                        {{item.billType}}
+                    </td>
+                    <td>{{item.billCode}}</td>
+                    <td >{{item.originBillCode}}</td>
+                    <td >{{item.applyAmount}}</td>
+                    <td >{{item.productName}}</td>
+                    <td>{{item.billDate}}</td>
+                    <td>
+                        <span *ngIf="item.status == 0">申请中</span>
+                        <span *ngIf="item.status == 1">审核中</span>
+                        <span *ngIf="item.status == 2">放款</span>
+                        <span *ngIf="item.status == -1">已确认</span>
+                    </td>
+
+                    <td>
+                        <button class="btn btn-outline-secondary" (click)="toView(item.id)">详情</button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <p-paginator [rows]="pageNav.itemsPerPage" [totalRecords]="pageNav.totalElements" (onPageChange)="paginateQuery($event)"></p-paginator>
+    </div>
+</div>

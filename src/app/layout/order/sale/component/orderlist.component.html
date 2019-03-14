@@ -1,0 +1,28 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'零售订单信息'" [icon]="'fa-th-list'"></app-page-header>
+
+    <p-tabView>
+        <p-tabPanel header="未支付">
+            <app-order-list-status [status]="1"></app-order-list-status>
+        </p-tabPanel>
+        <p-tabPanel header="已支付">
+            <app-order-list-status [status]="2"></app-order-list-status>
+        </p-tabPanel>
+        <p-tabPanel header="待发货">
+            <app-order-list-status [status]="3"></app-order-list-status>
+        </p-tabPanel>
+        <p-tabPanel header="已发货">
+            <app-order-list-status [status]="4"></app-order-list-status>
+        </p-tabPanel>
+        <p-tabPanel header="交易完成">
+            <app-order-list-status [status]="5"></app-order-list-status>
+        </p-tabPanel>
+        <p-tabPanel header="已退款">
+            <app-order-list-status [status]="8"></app-order-list-status>
+        </p-tabPanel>
+        <p-tabPanel header="售后处理">
+            <app-order-list-status [status]="9"></app-order-list-status>
+        </p-tabPanel>
+    </p-tabView>
+
+</div>

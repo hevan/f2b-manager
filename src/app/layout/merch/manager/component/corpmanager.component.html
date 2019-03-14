@@ -1,0 +1,119 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'管理员工信息'" [icon]="'fa-th-list'"></app-page-header>
+    <div class="col-xl-12">
+        <form (ngSubmit)="paginateQuery(null)" #searchForm="ngForm" >
+            <div class="row mb-2">
+                <div class="col-2 text-left">
+                    姓名
+                </div>
+                <div class="col-4 text-left">
+                    <input type="text" [(ngModel)]="searchData.realName" class="form-control" name="name" id="idName">
+                </div>
+                <div class="col-2 text-left">
+                    手机号码
+                </div>
+                <div class="col-4 text-left">
+                    <input type="text" [(ngModel)]="searchData.mobile" class="form-control" name="mobile" id="idmobile">
+                </div>
+
+            </div>
+            <div class="row mb-2">
+                <div class="col-8 text-left">
+
+                </div>
+
+                <div class="col-4">
+                    <button class="btn btn-primary" type="submit">查询</button>&nbsp;<button type="button" class="btn btn-warning" (click)="toEdit('')">增加</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-xl-12">
+        <p-table [value]="listData">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>名称</th>
+                    <th>手机号码</th>
+                    <th>所在部门</th>
+                    <th>岗位</th>
+                    <th>创建日期</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td>
+                        {{item.realName}}
+                    </td>
+                    <td>{{item.mobile}}</td>
+                    <td ><span *ngIf="item.depart">{{item.depart.name}}</span></td>
+                    <td ><span *ngIf="item.corpRole">{{item.corpRole.name}}</span></td>
+
+                    <td>{{item.createDate}}</td>
+                    <td>
+                        <span *ngIf="item.activeStatus == 0">无效</span>
+                        <span *ngIf="item.activeStatus == 1">有效</span>
+                    </td>
+
+                    <td>
+                        <button class="btn btn-outline-secondary" (click)="checkItem(item)">切换状态</button>&nbsp;
+                        <button class="btn btn-outline-secondary" (click)="toEdit(item)">编辑</button>&nbsp;
+
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <p-paginator [rows]="pageNav.itemsPerPage" [totalRecords]="pageNav.totalElements" (onPageChange)="paginateQuery($event)"></p-paginator>
+
+        <p-dialog header="管理员" [(visible)]="displayEdit" [modal]="true" [responsive]="true" [width]="600" [minWidth]="200" [minY]="70">
+            <form (ngSubmit)="onSubmit()" #userForm="ngForm">
+                <div class="form-row" >
+                    <div class="form-group col-md-6">
+                       <label for="idrealName">姓名</label>
+                       <input type="text" class="form-control" [(ngModel)]="selectData.realName"  name="realName" id="idrealName" placeholder="真实的用户名">
+                   </div>
+                    <div class="form-group col-md-6">
+                        <label for="idmobile">手机号码</label>
+                        <input type="text" class="form-control" [(ngModel)]="selectData.mobile" name="mobile" id="idmobile" placeholder="手机号码">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="idDepartId">部门</label>
+                        <select [(ngModel)]="selectData.departId" name="departId" class="form-control" id="idDepartId">
+                            <option value="">请选择</option>
+                            <option *ngFor="let item of listDepart" [value]="item.id">{{item.name}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="idcorpRole">岗位</label>
+                        <select [(ngModel)]="selectData.corpRoleId" name="corpRoleId" class="form-control" id="idcorpRole">
+                            <option value="">请选择</option>
+                            <option *ngFor="let item of listCorpRole" [value]="item.id">{{item.name}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label for="inputState">状态</label>
+                        <select id="inputState" [(ngModel)]="selectData.activeStatus" name="activeStatus" class="form-control">
+                            <option value="1">有效</option>
+                            <option value="0">无效</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6"></div>
+                    <div class="form-group col-md-6">
+                    <button class="btn btn-primary mr-2" type="submit" [disabled]="submitted" >保存</button>
+                    <button class="btn btn-secondary" type="button" icon="fa-close" (click)="displayEdit=false">取消</button>
+
+                    </div>
+                </div>
+            </form>
+        </p-dialog>
+    </div>
+</div>

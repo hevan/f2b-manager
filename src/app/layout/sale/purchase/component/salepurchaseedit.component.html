@@ -1,0 +1,160 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'采购订单'" [icon]="'fa-th-list'"></app-page-header>
+    <form (ngSubmit)="onSubmit()" [formGroup]="dataForm">
+
+        <div class="form-row">
+            <div class=" col-md-4">
+                <label>单据编号</label>
+            </div>
+            <div class="form-group col-md-4">
+                <input type="text" class="form-control" formControlName="billCode" id="idbillCode" placeholder="请点按钮产生单据编号">
+            </div>
+            <div class="form-group col-md-4">
+                <button type="button" (click)="genBillCode()" class="btn btn-warning">产生编号</button>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="idname">订单名</label>
+                <input type="text" class="form-control" formControlName="name" id="idname" placeholder="订单名">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="idbillType">订单类型</label>
+                <select formControlName="billType" class="form-control" id="idbillType">
+                    <option value="">请选择</option>
+                    <option *ngFor="let item of listBillType" [value]="item.itemName">{{item.itemName}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div col-md-4>
+                <label>采购企业</label>
+            </div>
+            <div class="form-group col-md-4">
+                <input type="text" class="form-control" readonly formControlName="purchCorpName" id="idsupplyCorpName" placeholder="请点按钮选择">
+                <input type="hidden" class="form-control" formControlName="purchCorpId" id="idsupplyCorpId">
+            </div>
+            <div class="form-group col-md-4">
+                <button type="button" (click)="selectCorp()" class="btn btn-warning">选择企业</button>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="idpurchLinkMan">采购联系人</label>
+                <input type="text" class="form-control" formControlName="supplyLinkMan" id="idpurchLinkMan" placeholder="">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="idpurchLinkMan">采购联系电话</label>
+                <input type="text" class="form-control" formControlName="supplyLinkTel" id="idpurchLinkTel" placeholder="">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+
+            </div>
+            <div class="form-group col-md-6">
+                <button type="submit" class="btn btn-primary">保存</button>&nbsp;
+                <button class="btn btn-primary mr-2" type="button" (click)="selectProduct()" >选产品</button>&nbsp;
+                <button type="button" (click)="goBack()" class="btn btn-warning">返回</button>
+            </div>
+
+        </div>
+    </form>
+    <div class="col-12">
+      <p-table [value]="listItem">
+          <ng-template pTemplate="header">
+              <tr>
+                  <th>产品ID</th>
+                  <th>产品编码</th>
+                  <th>产品名</th>
+                  <th>产品图片</th>
+                  <th>产品SKU</th>
+                  <th>计量单位</th>
+                  <th>单价</th>
+                  <th>采购数量</th>
+                  <th>合计</th>
+                  <th>备注</th>
+                  <th>操作</th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-item>
+              <tr>
+                  <td>{{item.prodId}}</td>
+                  <td>{{item.prodCode}}</td>
+                  <td>{{item.prodName}}</td>
+                  <td ><img [src]="item.prodImageUrl" width="100"></td>
+                  <td>{{item.sku}}</td>
+                  <td>{{item.calcUnit}}</td>
+                  <td>{{item.price}}</td>
+                  <td>{{item.qty}}</td>
+                  <td>{{item.amount}}</td>
+                  <td>{{item.description}}</td>
+                  <td>
+                      <button class="btn btn-outline-secondary" (click)="toEditItem(item)">修改数量</button>&nbsp;
+                      <button class="btn btn-outline-secondary" (click)="toDelete(item.id)">删除</button>
+                  </td>
+              </tr>
+          </ng-template>
+      </p-table>
+    </div>
+
+    <p-dialog header="产品采购数量" [(visible)]="displayEdit" [modal]="true" [closable]="false" [responsive]="true" [width]="600" [minWidth]="200" [minY]="70">
+        <div class="row">
+            <div class="form-group col-md-6"></div>
+            <div class="form-group col-md-6">
+                <button class="btn btn-primary mr-2" type="button" (click)="saveProductItem()" >保存</button>
+                <button class="btn btn-secondary" type="button" icon="fa-close" (click)="cancelEdit()">取消</button>
+            </div>
+        </div>
+        <div class="row">
+        <p-table [value]="listPurchaseItemUpdate">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>产品ID</th>
+                    <th>产品编码</th>
+                    <th>产品名</th>
+                    <th>产品图片</th>
+                    <th>产品SKU</th>
+                    <th>计量单位</th>
+                    <th>单价</th>
+                    <th>采购数量(修改)</th>
+                    <th>合计</th>
+                    <th>备注(修改)</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td>{{item.prodId}}</td>
+                    <td>{{item.prodCode}}</td>
+                    <td>{{item.prodName}}</td>
+                    <td ><img [src]="item.prodImageUrl" width="100"></td>
+                    <td>{{item.sku}}</td>
+                    <td>{{item.calcUnit}}</td>
+                    <td>{{item.price}}</td>
+                    <td pEditableColumn>
+                        <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input type="text" [(ngModel)]="item.qty">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{item.qty}}
+                        </ng-template>
+                    </p-cellEditor>
+                    </td>
+                    <td>{{item.amount}}</td>
+                    <td pEditableColumn>
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input type="text" [(ngModel)]="item.description">
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{item.description}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+        </div>
+    </p-dialog>
+</div>

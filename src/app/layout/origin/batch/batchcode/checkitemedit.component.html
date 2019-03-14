@@ -1,0 +1,57 @@
+<div class="modal-header">
+    <h4 class="modal-title">编辑生产过程</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="closeDialog()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form (ngSubmit)="onSubmit()" [formGroup]="dataForm">
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="idCheckType">类别</label>
+                <select id="input" formControlName="checkType" class="form-control" id="idCheckType">
+                    <option value="1">植保信息</option>
+                    <option value="2">检测信息</option>
+                    <option value="3">加工信息</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label for="iddescription">描述</label>
+                <textarea rows="3" class="form-control" formControlName="description" id="iddescription" placeholder=""></textarea>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <p-fileUpload name="file[]" #fubauto chooseLabel="上传主图" mode="basic" url="http://api.yjf2b.com/auth/v2/open/file/upload" accept="image/*" (onUpload)="onBasicUploadAuto($event)" auto="true"></p-fileUpload>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="ui-g">
+                <div class="ui-g-12 ui-md-6 ui-lg-3" *ngFor="let item of listImage;let idx = index" >
+                    <div class="row">
+                      <img src="item">
+                    </div>
+                    <div class="row">
+                      <button type="button" (click)="deleteImage(idx)">删除</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+
+            </div>
+            <div class="form-group col-md-6">
+                <button type="submit" class="btn btn-primary">保存</button>&nbsp;
+                <button type="button" (click)="closeDialog()" class="btn btn-warning">关闭</button>
+            </div>
+
+        </div>
+    </form>
+</div>

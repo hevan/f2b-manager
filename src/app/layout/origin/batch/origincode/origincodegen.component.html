@@ -1,0 +1,32 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'产生动态码'" [icon]="'fa-th-list'"></app-page-header>
+    <div class="col-xl-12">
+        <form (ngSubmit)="genCode()" #searchForm="ngForm" >
+
+            <div class="row mb-2">
+                <div class="col-2 text-left">
+                    批次ID
+                </div>
+                <div class="col-4 text-left">
+                    {{curBatchCodeId}}
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-2 text-left">
+                    产生个数
+                </div>
+                <div class="col-4 text-left">
+
+                        <input type="text" [(ngModel)]="nCount" class="form-control" name="nCount" id="idnCount">
+
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-12 text-right">
+                    <button class="btn btn-primary" [disabled]="bSubmitted" type="submit">产生动态码</button>&nbsp;
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>

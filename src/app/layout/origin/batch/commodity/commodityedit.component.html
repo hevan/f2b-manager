@@ -1,0 +1,115 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'编辑商品信息'" [icon]="'fa-th-list'"></app-page-header>
+    <form (ngSubmit)="onSubmit()" [formGroup]="dataForm">
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="idname">名称</label>
+                <input type="text" class="form-control" formControlName="name" id="idname" placeholder="产品名">
+            </div>
+            <div class="form-group col-6">
+                <label for="idcommodityCode">商品编码</label>
+                <input type="text" class="form-control" formControlName="commodityCode" id="idcommodityCode">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <p-fileUpload name="file[]" #fubauto chooseLabel="上传主图" mode="basic" url="http://api.yjf2b.com/auth/v2/open/file/upload" accept="image/*" (onUpload)="onBasicUploadAuto($event)" auto="true"></p-fileUpload>
+            </div>
+            <div class="form-group col-md-6">
+                <img *ngIf="imageUrl" [src]="imageUrl" width="100px;">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+
+            </div>
+            <div class="form-group col-md-6">
+                <button type="submit" class="btn btn-primary">保存</button>&nbsp;
+                <button type="button" (click)="goBack()" class="btn btn-warning">返回</button>
+            </div>
+
+        </div>
+    </form>
+    <div class="col-12">
+        <p-tabView>
+            <p-tabPanel header="展示图片">
+              <div class="row">
+                  <div class="row text-right">
+                      <button type="button" (click)="addMediaItem()">增加商品图片</button>
+                  </div>
+                  <div class="row ">
+
+                      <p-table [value]="listMediaItem">
+                          <ng-template pTemplate="header">
+                              <tr>
+                                  <th>序号</th>
+                                  <th>名称</th>
+                                  <th>路径</th>
+                                  <th>图片</th>
+                                  <th>操作</th>
+                              </tr>
+                          </ng-template>
+                          <ng-template pTemplate="body" let-item>
+                              <tr>
+                                  <td>
+                                      {{item.id}}
+                                  </td>
+                                  <td>
+                                      {{item.name}}
+                                  </td>
+                                  <td><p style="word-wrap:break-word;">{{item.imageUrl}}</p></td>
+                                  <td ><img [src]="item.imageUrl" width="100"></td>
+
+                                  <td>
+                                      <button class="btn btn-outline-secondary" (click)="deleteMediaItem(item.id)">删除</button>&nbsp;
+                                  </td>
+                              </tr>
+                          </ng-template>
+                      </p-table>
+
+                  </div>
+              </div>
+
+            </p-tabPanel>
+
+            <p-tabPanel header="宣传内容">
+                <div class="row">
+                    <div class="row text-right">
+                        <button type="button" (click)="addContentItem()">增加商品展示信息</button>
+                    </div>
+                    <div class="row ">
+
+                        <p-table [value]="listContentItem">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th>id</th>
+                                    <th>名称</th>
+
+                                    <th>图片</th>
+                                    <th>操作</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-item>
+                                <tr>
+                                <td>
+                                    {{item.id}}
+                                </td>
+                                <td>
+                                    {{item.name}}
+                                </td>
+                                <td ><div *ngIf="item.imageUrl"><img [src]="item.imageUrl" width="100"></div></td>
+                                <td>
+                                    <button class="btn btn-outline-secondary" (click)="deleteContentItem(item.id)">删除</button>&nbsp;
+                                </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </div>
+            </p-tabPanel>
+        </p-tabView>
+    </div>
+
+</div>

@@ -1,0 +1,58 @@
+<div class="container">
+    <form (ngSubmit)="paginateQuery(null)">
+        <div class="row">
+            <div class="col-xs-6 col-md-6">
+                <div class="row">
+                    <div class="col-4 text-left">
+                        产品编号
+                    </div>
+                    <div class="col-8 text-left">
+                        <input type="text" [(ngModel)]="searchData.prodCode" class="form-control" name="prodCode"
+                               id="idbillCode">
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-12 text-right ">
+                    <button class="btn btn-primary" type="submit" [disabled]="submitted">查询</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="col-xl-12">
+        <p-table [value]="listData">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>产品ID</th>
+                    <th>产品编码</th>
+                    <th>产品名</th>
+                    <th>产品图片</th>
+                    <th>产品SKU</th>
+                    <th>计量单位</th>
+                    <th>单价</th>
+                    <th>销售数量</th>
+                    <th>合计</th>
+                    <th>订单ID</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td>{{item.prodId}}</td>
+                    <td>{{item.prodCode}}</td>
+                    <td>{{item.prodName}}</td>
+                    <td><img [src]="item.prodImageUrl" width="100"></td>
+                    <td>{{item.sku}}</td>
+                    <td>{{item.calcUnit}}</td>
+                    <td>{{item.price}}</td>
+                    <td>{{item.qty}}</td>
+                    <td>{{item.amount}}</td>
+                    <td><button class="btn btn-outline-secondary" (click)="toView(item.orderId)">查看</button></td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <p-paginator [rows]="pageNav.itemsPerPage" [totalRecords]="pageNav.totalElements"
+                     (onPageChange)="paginateQuery($event)"></p-paginator>
+
+    </div>
+

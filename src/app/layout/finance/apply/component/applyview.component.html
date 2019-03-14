@@ -1,0 +1,64 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'查看金融服务申请'" [icon]="'fa-th-list'"></app-page-header>
+    <div class="row" *ngIf="applyData">
+        <div class="row col-12">
+            <div class="col-4">原单类别:</div>
+            <div class="col-8">{{applyData.originBillType}}</div>
+        </div>
+        <div class="row col-12">
+            <div class="col-4">原单号:</div>
+            <div class="col-8">{{applyData.originBillCode}}</div>
+        </div>
+        <div class="row col-12">
+            <div class="col-4">单据类型:</div>
+            <div class="col-8">{{applyData.billType}}</div>
+        </div>
+        <div class="row col-12">
+            <div class="col-4">单据号:</div>
+            <div class="col-8">{{applyData.billCode}}</div>
+        </div>
+
+        <div class="row col-12">
+            <div class="col-4">产品:</div>
+            <div class="col-8">{{applyData.productName}}</div>
+        </div>
+        
+        <div class="row col-12">
+            <div class="col-4">金额:</div>
+            <div class="col-8">{{applyData.applyMoney}}</div>
+        </div>
+
+        <div class="row col-12">
+            <div class="col-4">担保企业:</div>
+            <div class="col-8">{{applyData.assureCorpName}}</div>
+        </div>
+
+        <div class="row col-12">
+            <div class="col-4">申请企业(人):</div>
+            <div class="col-8">{{applyData.applyCorpName}}</div>
+        </div>
+        <div class="row col-12">
+            <div class="col-4">联系人:</div>
+            <div class="col-8">{{applyData.applyLinkMan}}</div>
+        </div>
+
+        <div class="row col-12">
+            <div class="col-4">联系电话:</div>
+            <div class="col-8">{{applyData.applyLinkTel}}</div>
+        </div>
+
+        <div class="row col-12">
+            <div class="col-4">状态:</div>
+            <div class="col-8">
+                <span *ngIf="applyData.status == 0">待审核</span>
+                <span *ngIf="applyData.status == 1">审核中</span>
+                <span *ngIf="applyData.status == 2">已放款</span>
+                <span *ngIf="applyData.status == -1">拒绝</span>
+            </div>
+        </div>
+
+    </div>
+    <div class="row col-12 text-right">
+        <button class="btn btn-primary" (click)="toEdit()">编辑</button>&nbsp;<button class="btn btn-secondary" (click)="goBack()">返回</button>
+    </div>
+</div>

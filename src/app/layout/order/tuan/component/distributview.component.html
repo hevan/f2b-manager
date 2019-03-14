@@ -1,0 +1,119 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'查看团信息'" [icon]="'fa-th-list'"></app-page-header>
+    <div class="row" *ngIf="tuanData">
+
+        <div class="row col-12">
+            <div class="col-4">团购名称:</div>
+            <div class="col-8">{{tuanData.tuanName}}</div>
+        </div>
+
+        <div class="row col-12">
+            <div class="col-4">日期:</div>
+            <div class="col-8">{{tuanData.startDate}}</div>
+        </div>
+        
+        <div class="row col-12">
+            <div class="col-4">截止日期:</div>
+            <div class="col-8">{{tuanData.endDate}}</div>
+        </div>
+
+        <div class="row col-12">
+            <div class="col-4">发货日期:</div>
+            <div class="col-8">{{tuanData.sendDate}}</div>
+        </div>
+
+
+    </div>
+
+    <div class="row col-12 text-right">
+        <button class="btn btn-secondary" (click)="goBack()">返回</button>&nbsp;
+    </div>
+    <div class="col-12">
+        <p-tabView>
+            <p-tabPanel header="订单明细">
+                <div class="col-xl-12">
+                    <p-table [value]="listData" >
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>订单编号</th>
+                                <th>订单日期</th>
+                                <th>支付方式</th>
+                                <th>订单金额</th>
+                                <th>数量</th>
+                                <th>订单手机号</th>
+                                <th>联系人</th>
+                                <th>收货城市</th>
+                                <th>订单状态</th>
+                                <th>操作</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-item>
+                            <tr>
+                                <td class="break-custom">
+                                    {{item.orderNo}}
+                                </td>
+                                <td class="break-custom">{{item.createdDate}}</td>
+                                <td>
+                                    <span *ngIf="item.payType == 1">支付宝</span>
+                                    <span *ngIf="item.payType == 2">微信</span>
+                                </td>
+                                <td>{{item.amount}}</td>
+                                <td>{{item.productCount}}</td>
+                                <td class="break-custom">{{item.userMobile}}</td>
+                                <td><span *ngIf="item.recvAddress">{{item.address.linkName}}</span></td>
+                                <td><span *ngIf="item.recvAddress">{{item.address.city}}</span></td>
+                                <td>
+                                    <span *ngIf="item.status < 2">未支付</span>
+                                    <span *ngIf="item.status == 2">已支付</span>
+                                    <span *ngIf="item.status == 3">待发货</span>
+                                    <span *ngIf="item.status == 4">已发货</span>
+                                    <span *ngIf="item.status == 5">已完结</span>
+                                    <span *ngIf="item.status == 9">已售后</span>
+                                </td>
+                                <td>
+                                    <button class="btn btn-outline-secondary" (click)="toView(item.id)">查看</button>
+                                    &nbsp;
+                                    <button class="btn btn-outline-secondary" *ngIf="item.status==2" (click)="toTrans(item.id)">发货
+                                    </button>
+                                    &nbsp;
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                    <p-paginator [rows]="pageNav.itemsPerPage" [totalRecords]="pageNav.totalElements"
+                                 (onPageChange)="paginateQuery($event)"></p-paginator>
+                </div>
+            </p-tabPanel>
+
+            <p-tabPanel header="发货单">
+                <div class="col-xl-12">
+                <p-table [value]="listSaleProduct" *ngIf="curId">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>产品ID</th>
+                            <th>产品编码</th>
+                            <th>产品名</th>
+                            <th>产品图片</th>
+                            <th>数量</th>
+                            <th>合计</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-item>
+                        <tr>
+                            <td>{{item.prodId}}</td>
+                            <td>{{item.prodCode}}</td>
+                            <td>{{item.prodName}}</td>
+                            <td ><img [src]="item.prodImageUrl" width="100"></td>
+                            <td>{{item.qty}}</td>
+                            <td>{{item.amount}}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+                    </div>
+            </p-tabPanel>
+        </p-tabView>
+
+    </div>
+
+
+</div>

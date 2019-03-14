@@ -1,0 +1,62 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'查看介绍信息'" [icon]="'fa-th-list'"></app-page-header>
+    <div class="row" *ngIf="introDocData">
+        <div class="row col-12">
+            <div class="col-4">标题:</div>
+            <div class="col-8">{{introDocData.title}}</div>
+        </div>
+        <div class="row col-12">
+            <div class="col-4">作者:</div>
+            <div class="col-8">{{introDocData.author}}</div>
+        </div>
+
+        <div class="row col-12">
+            <div class="col-4">标签:</div>
+            <div class="col-8">{{introDocData.tag}}</div>
+        </div>
+
+        <div class="row col-12">
+            <div class="col-4">发布日期:</div>
+            <div class="col-8">{{introDocData.publishDate}}</div>
+        </div>
+        <div class="row col-12">
+            <div class="col-4">显示样式:</div>
+            <div class="col-8">
+                <span *ngIf="introDocData.showMulti == 1">左右显示</span>
+                <span *ngIf="introDocData.showMulti == 2">上下大图</span>
+                <span *ngIf="introDocData.showMulti == 3">上下多图</span>
+            </div>
+        </div>
+        <div class="row col-12">
+            <div class="col-4">描述:</div>
+            <div class="col-8">{{introDocData.description}}</div>
+        </div>
+        <div class="row col-12">
+            <div class="form-group col-md-3" *ngFor="let item of listImages">
+                <img [src]="item">
+            </div>
+        </div>
+        <div class="row col-12">
+            <div class="col-2">媒体类型:</div>
+            <div class="col-4">{{introDocData.mediaType}}</div>
+            <div class="col-2">媒体URL:</div>
+            <div class="col-4">{{introDocData.mediaUrl}}</div>
+        </div>
+        <div class="row col-12">
+            <div class="col-2">发布状态:</div>
+            <div class="col-4">
+                <span *ngIf="introDocData.status == 0">未发布</span>
+                <span *ngIf="introDocData.status == 1">已发布</span>
+                <span *ngIf="introDocData.status == -1">已关闭</span>
+            </div>
+        </div>
+
+        <div class="row col-12">
+            <p [innerHtml]="introDocData.content"></p>
+        </div>
+    </div>
+    <div class="row col-12 text-right">
+        <button class="btn btn-primary" (click)="toEdit()">编辑</button>&nbsp;<button class="btn btn-secondary" (click)="goBack()">返回</button>
+    </div>
+
+</div>

@@ -1,0 +1,24 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'查看动态码信息'" [icon]="'fa-th-list'"></app-page-header>
+    <div class="row" *ngIf="originCodeData">
+        <div class="row col-12">
+            <div class="col-4">商品批次码:</div>
+            <div class="col-8">{{originCodeData.commodityCode}}</div>
+        </div>
+        <div class="row col-12">
+            <div class="col-4">商品批次码:</div>
+            <div class="col-8">{{originCodeData.batchCode}}</div>
+        </div>
+        <div class="row col-12">
+            <div class="col-4">编码:</div>
+            <div class="col-8">{{originCodeData.originCode}}</div>
+        </div>
+
+    </div>
+    <div class="row col-12 text-right">
+        <button class="btn btn-secondary" (click)="goBack()">返回</button>
+    </div>
+    <div class="row col-12 center-block mt-2" *ngIf="originCodeData">
+        <qrcode [qrdata]="qrdata" [size]="256" [level]="'M'"></qrcode>
+    </div>
+</div>

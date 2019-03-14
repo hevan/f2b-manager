@@ -1,0 +1,45 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'查看企业信息'" [icon]="'fa-th-list'"></app-page-header>
+    <div class="row">
+        <div class="row col-12">
+            <div class="col-4">类别:</div>
+            <div class="col-8">{{warehouseData.type}}</div>
+        </div>
+        <div class="row col-12">
+            <div class="col-4">仓库名:</div>
+            <div class="col-8">{{warehouseData.name}}</div>
+        </div>
+        <div class="row col-12">
+            <div class="col-4">城市:</div>
+            <div class="col-8">{{warehouseData.city}}</div>
+        </div>
+
+        <div class="row col-12">
+            <div class="col-4">详细地址:</div>
+            <div class="col-8">{{warehouseData.address}}</div>
+        </div>
+
+        <div class="row col-12">
+            <div class="col-4">经营范围:</div>
+            <div class="col-8">{{warehouseData.busiScope}}</div>
+        </div>
+        <div class="row col-12">
+            <div class="col-2">联系人:</div>
+            <div class="col-4">{{warehouseData.linkMan}}</div>
+            <div class="col-2">电话:</div>
+            <div class="col-4">{{warehouseData.linkTel}}</div>
+        </div>
+        <div class="row col-12">
+            <div class="col-2">面积:</div>
+            <div class="col-4">{{warehouseData.area}}</div>
+            <div class="col-2">容量:</div>
+            <div class="col-4">{{warehouseData.capacity}}</div>
+        </div>
+        <div class="row col-12">
+           <img [src]="warehouseData.certImageUrl">
+        </div>
+    </div>
+    <div class="row col-12 text-right">
+        <button class="btn btn-primary" (click)="toEdit()">编辑</button>&nbsp;<button class="btn btn-secondary" (click)="goBack()">返回</button>
+    </div>
+</div>

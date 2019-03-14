@@ -1,0 +1,68 @@
+<div class="login-page" [@routerTransition]>
+    <div class="row justify-content-md-center">
+        <div class="col-md-4">
+            <img class="user-avatar" src="assets/images/logo.png" width="150px" />
+            <h1>F2B商户注册</h1>
+            <form (ngSubmit)="onSubmit()" [formGroup]="registerForm">
+                <div class="form-content">
+                    <div class="form-group input-group">
+                        <input type="text" class="form-control input-underline input-lg" formControlName="mobile"
+                               placeholder="请输入11位手机号码">&nbsp;<button class="btn btn-secondary" [disabled]="disabled" (click)="getCode($event)">{{tips}}</button>
+                    </div>
+                    <div class="form-group input-group">
+                        <p
+                            *ngIf="!registerForm.controls.mobile.valid && (registerForm.controls.mobile.dirty || registerForm.controls.mobile.touched)"
+                            class="alert alert-danger custom-backgroud">
+                            手机号码，必输入
+                        </p>
+                    </div>
+                    <div class="form-group input-group">
+                        <input type="text" class="form-control input-underline input-lg" formControlName="veryCode"
+                               placeholder="请输入手机验证码">
+                    </div>
+                    <div class="form-group input-group">
+                        <p
+                                *ngIf="!registerForm.controls.veryCode.valid && (registerForm.controls.veryCode.dirty || registerForm.controls.veryCode.touched)"
+                                class="alert alert-danger custom-backgroud">
+                            手机号码，必输入
+                        </p>
+                    </div>
+                    <div class="form-group input-group">
+
+                        <input type="password" class="form-control input-underline input-lg" formControlName="password"
+                               placeholder="请输入密码">
+                    </div>
+                    <div class="form-group input-group">
+                        <p
+                            *ngIf="!registerForm.controls.password.valid && (registerForm.controls.password.dirty || registerForm.controls.password.touched)"
+                            class="alert alert-danger custom-backgroud">
+                            密码，必输入
+                        </p>
+                    </div>
+
+                    <div class="form-group input-group">
+                        <input type="password" class="form-control input-underline input-lg" formControlName="confirmPassword"
+                               placeholder="请输入确认密码">
+                    </div>
+                    <div class="form-group input-group">
+                        <p
+                            *ngIf="!registerForm.controls.confirmPassword.valid && (registerForm.controls.confirmPassword.dirty || registerForm.controls.confirmPassword.touched)"
+                            class="alert alert-danger custom-backgroud">
+                            确认密码，必输入
+                        </p>
+                        <p class="alert alert-danger" *ngIf="message">{{message}}</p>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-lg btn-block" [disabled]="!registerForm.valid || submitted" type="submit">注册</button>
+
+                    </div>
+                    <div class="form-group text-right">
+                       <a  [routerLink]="['/login']" >已有账号去登录</a>
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+</div>

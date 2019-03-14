@@ -1,0 +1,279 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'查看产品信息'" [icon]="'fa-th-list'"></app-page-header>
+    <div class="row" *ngIf="productData">
+        <div class="col-xs-6 col-md-6">
+        <div class="row">
+            <div class="col-4">类目:</div>
+            <div class="col-8" *ngIf="productData.category">{{productData.category.name}}</div>
+        </div>
+        </div>
+        <div class="col-xs-6 col-md-6">
+        <div class="row">
+            <div class="col-4">产品名:</div>
+            <div class="col-8">{{productData.name}}</div>
+        </div>
+            </div>
+        <div class="col-xs-6 col-md-6">
+        <div class="row">
+            <div class="col-4">产地:</div>
+            <div class="col-8">{{productData.originPlace}}</div>
+        </div>
+       </div>
+        <div class="col-xs-6 col-md-6">
+        <div class="row">
+            <div class="col-4">产品编号:</div>
+            <div class="col-8">{{productData.code}}</div>
+        </div>
+       </div>
+        <div class="col-xs-6 col-md-6">
+        <div class="row">
+            <div class="col-4">规格:</div>
+            <div class="col-8">{{productData.spec}}</div>
+        </div>
+            </div>
+        <div class="col-xs-6 col-md-6">
+            <div class="row">
+            <div class="col-4">类别:</div>
+            <div class="col-8">
+                <span *ngIf="productData.productType==1">零售</span>
+                <span *ngIf="productData.productType==2">批发</span>
+            </div>
+                </div>
+        </div>
+        <div class="col-xs-6 col-md-6">
+        <div class="row">
+            <div class="col-4">是否预售:</div>
+            <div class="col-8">
+                <span *ngIf="productData.bookingType==1">预售</span>
+                <span *ngIf="productData.bookingType==0">现货</span>
+            </div>
+        </div>
+            </div>
+        <div class="col-xs-6 col-md-6">
+        <div class="row">
+            <div class="col-4">标签:</div>
+            <div class="col-8">{{productData.tag}}</div>
+        </div>
+            </div>
+        <div class="col-xs-6 col-md-6">
+        <div class="row">
+            <div class="col-4">品牌:</div>
+            <div class="col-8" *ngIf="productData.brand">{{productData.brand.name}}</div>
+        </div>
+            </div>
+        <div class="col-xs-6 col-md-6">
+            <div class="row">
+        <div class="col-4">公司名:</div>
+        <div class="col-8">{{productData.corpName}}</div>
+         </div>
+            </div>
+        <div class="col-xs-6 col-md-6">
+            <div class="row">
+            <div class="col-4">单价:</div>
+            <div class="col-8">{{productData.price}}</div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-6">
+            <div class="row">
+        <div class="col-4">计量单位:</div>
+        <div class="col-8">{{productData.calcUnit}}</div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-6">
+        <div class="row">
+            <div class="col-4">库存:</div>
+            <div class="col-8">{{productData.stock}}</div>
+        </div>
+            </div>
+        <div class="col-xs-6 col-md-6">
+            <div class="row">
+                <div class="col-4">销售数量:</div>
+                <div class="col-8">{{productData.saledCount}}</div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-6">
+            <div class="row">
+                <div class="col-4">排序:</div>
+                <div class="col-8">{{productData.sortNum}}</div>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="row">
+                <img [src]="productData.imageUrl" width="600">
+            </div>
+
+        </div>
+
+    </div>
+    <div class=" col-12 mt-2">
+        <button class="btn btn-primary" (click)="toEdit()">编辑</button>&nbsp;<button class="btn btn-primary" (click)="toUpdateStatus(1)">上架</button>&nbsp;<button class="btn btn-primary" (click)="toUpdateStatus(-1)">下架</button>&nbsp;<button class="btn btn-secondary" (click)="goBack()">返回</button>
+    </div>
+    <div class="row ">
+        <p-tabView>
+            <p-tabPanel header="产品详情">
+                <div class="row col-12">
+                    <p [innerHtml]="productData.content"></p>
+                </div>
+            </p-tabPanel>
+            <p-tabPanel header="产品轮播图">
+                <div class="col-12">
+                    <div class="row text-right">
+                        <p-fileUpload name="file[]" #fubauto chooseLabel="上传主图" mode="basic" url="http://api.yjf2b.com/auth/v2/open/file/upload" accept="image/*" (onUpload)="onBasicUploadAutoEx($event)" auto="true"></p-fileUpload>
+                    </div>
+                    <div class="row ">
+
+                        <p-table [value]="listMedia">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th>序号</th>
+                                    <th>路径</th>
+                                    <th>图片</th>
+                                    <th>序号</th>
+                                    <th>操作</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-item>
+                                <tr>
+                                    <td>
+                                        {{item.id}}
+                                    </td>
+                                    <td><p style="word-wrap:break-word;">{{item.imageUrl}}</p></td>
+                                    <td ><img [src]="item.imageUrl" width="100"></td>
+                                    <td>{{item.sortNum}}</td>
+                                    <td>
+                                        <button class="btn btn-outline-secondary" (click)="toDelete(item.id)">删除</button>&nbsp;
+
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+
+                    </div>
+                </div>
+
+            </p-tabPanel>
+
+            <p-tabPanel header="产品SKU">
+                <div class="col-12">
+                    <div class="row text-right">
+                        <button type="button" (click)="addSku()">增加</button>&nbsp;<button type="button" (click)="saveSku()">保存</button>
+                    </div>
+                    <div class="row ">
+
+                        <p-table [value]="listSku">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th>sku</th>
+                                    <th>单价</th>
+                                    <th>市场价</th>
+                                    <th>库存</th>
+                                    <th>操作</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+                                <td pEditableColumn>
+                                    <p-cellEditor>
+                                        <ng-template pTemplate="input">
+                                            <input type="text" [(ngModel)]="item.sku">
+                                        </ng-template>
+                                        <ng-template pTemplate="output">
+                                            {{item.sku}}
+                                        </ng-template>
+                                    </p-cellEditor>
+                                </td>
+                                <td pEditableColumn>
+                                    <p-cellEditor>
+                                        <ng-template pTemplate="input">
+                                            <input type="text" [(ngModel)]="item.price" required>
+                                        </ng-template>
+                                        <ng-template pTemplate="output">
+                                            {{item.price}}
+                                        </ng-template>
+                                    </p-cellEditor>
+                                </td>
+                                <td pEditableColumn>
+                                    <p-cellEditor>
+                                        <ng-template pTemplate="input">
+                                            <input type="text" [(ngModel)]="item.marketPrice">
+                                        </ng-template>
+                                        <ng-template pTemplate="output">
+                                            {{item.marketPrice}}
+                                        </ng-template>
+                                    </p-cellEditor>
+                                </td>
+                                <td pEditableColumn>
+                                    <p-cellEditor>
+                                        <ng-template pTemplate="input">
+                                            <input type="text" [(ngModel)]="item.stock">
+                                        </ng-template>
+                                        <ng-template pTemplate="output">
+                                            {{item.stock}}
+                                        </ng-template>
+                                    </p-cellEditor>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-secondary" (click)="toDeleteSku(rowIndex)">删除</button>
+                                </td>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </div>
+            </p-tabPanel>
+            <p-tabPanel header="产品批发价设置">
+                <div class="col-12">
+                    <div class="row text-right">
+                        <button type="button" (click)="addWholesale()">增加</button>&nbsp;<button type="button" (click)="saveWholesale()">保存</button>
+                    </div>
+                    <div class="row ">
+
+                        <p-table [value]="listWholesale">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th>起定数量</th>
+                                    <th>截止数量</th>
+                                    <th>定价</th>
+                                    <th>操作</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+                                <td pEditableColumn>
+                                    <p-cellEditor>
+                                        <ng-template pTemplate="input">
+                                            <input type="text" [(ngModel)]="item.startCount">
+                                        </ng-template>
+                                        <ng-template pTemplate="output">
+                                            {{item.sku}}
+                                        </ng-template>
+                                    </p-cellEditor>
+                                </td>
+                                <td pEditableColumn>
+                                    <p-cellEditor>
+                                        <ng-template pTemplate="input">
+                                            <input type="text" [(ngModel)]="item.endCount">
+                                        </ng-template>
+                                        <ng-template pTemplate="output">
+                                            {{item.endCount}}
+                                        </ng-template>
+                                    </p-cellEditor>
+                                </td>
+                                <td pEditableColumn>
+                                    <p-cellEditor>
+                                        <ng-template pTemplate="input">
+                                            <input type="text" [(ngModel)]="item.price" required>
+                                        </ng-template>
+                                        <ng-template pTemplate="output">
+                                            {{item.price}}
+                                        </ng-template>
+                                    </p-cellEditor>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-secondary" (click)="toDeleteWholesale(rowIndex)">删除</button>
+                                </td>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </div>
+            </p-tabPanel>
+        </p-tabView>
+    </div>
+</div>

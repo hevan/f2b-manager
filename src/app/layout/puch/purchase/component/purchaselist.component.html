@@ -1,0 +1,101 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'管理产品信息'" [icon]="'fa-th-list'"></app-page-header>
+    <div class="col-xl-12">
+        <form (ngSubmit)="paginateQuery(null)" >
+            <div class="row mb-2">
+                <div class="col-2 text-left">
+                    订单类型
+                </div>
+                <div class="col-4 text-left">
+                    <select [(ngModel)]="searchData.billType" class="form-control" name="billType" id="idbillType">
+                        <option value="">请选择</option>
+                        <option *ngFor="let item of listBillType" [value]="item.itemCode">{{item.itemName}}</option>
+                    </select>
+                </div>
+                <div class="col-2 text-left">
+                    编号
+                </div>
+                <div class="col-4 text-left">
+                    <input type="text" [(ngModel)]="searchData.billCode" class="form-control" name="billCode" id="idbillCode">
+                </div>
+
+            </div>
+            <div class="row mb-2">
+                <div class="col-2 text-left">
+                    订单名称
+                </div>
+                <div class="col-4 text-left">
+                    <input type="text" [(ngModel)]="searchData.name" class="form-control" name="name" id="idName">
+                </div>
+                <div class="col-2 text-left">
+                    供货企业
+                </div>
+                <div class="col-4 text-left">
+                    <input type="text" [(ngModel)]="searchData.supplyCorpName" class="form-control" name="supplyCorpName" id="idsupplyCorpName">
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-2 text-left">
+                    日期范围
+                </div>
+                <div class="col-8 text-left">
+                    <p-calendar [(ngModel)]="searchData.startDate" showButtonBar="true" dataType="string" name="startDate"></p-calendar>至
+                    <p-calendar [(ngModel)]="searchData.endDate" showButtonBar="true" dataType="string" name="endDate"></p-calendar>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-12 text-right">
+                    <button class="btn btn-primary" type="submit">查询</button>&nbsp;<button type="button" class="btn btn-warning" (click)="toEdit('')">增加</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-xl-12">
+        <p-table [value]="listData">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>订单编号</th>
+                    <th>订单日期</th>
+                    <th>订单类型</th>
+                    <th>供货企业</th>
+                    <th>采购总量</th>
+                    <th>订单金额</th>
+                    <th>定金</th>
+                    <th>开始交货日期</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td>
+                        {{item.billCode}}
+                    </td>
+                    <td>{{item.billDate}}</td>
+                    <td >{{item.billType}}</td>
+                    <td >{{item.supplyCorpName}}</td>
+                    <td >{{item.totalCount}}</td>
+                    <td>{{item.amount}}</td>
+                    <td>{{item.depositMoney}}</td>
+                    <td>{{item.deliveryDate}}</td>
+                    <td>
+                        <span *ngIf="item.status == 0">未确定</span>
+                        <span *ngIf="item.status == 1">已提交</span>
+                        <span *ngIf="item.status == 2">已确定</span>
+                        <span *ngIf="item.status == 3">已交订金</span>
+                        <span *ngIf="item.status == 5">发货中</span>
+                        <span *ngIf="item.status == 9">已完成</span>
+                        <span *ngIf="item.status == -1">已取消</span>
+                    </td>
+                    <td>
+                        <button class="btn btn-outline-secondary" (click)="checkItem(item)">审核</button>&nbsp;
+                        <button class="btn btn-outline-secondary" (click)="toEdit(item.id)">编辑</button>&nbsp;
+                        <button class="btn btn-outline-secondary" (click)="toView(item.id)">详情</button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <p-paginator [rows]="pageNav.itemsPerPage" [totalRecords]="pageNav.totalElements" (onPageChange)="paginateQuery($event)"></p-paginator>
+    </div>
+</div>

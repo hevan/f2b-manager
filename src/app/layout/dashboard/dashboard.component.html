@@ -1,0 +1,23 @@
+<div [@routerTransition]>
+    <h2 class="text-muted">控制台</h2>
+    <hr>
+    <div class="row" *ngIf="corp">
+        <div class="col-xl-3 col-lg-6 m-2">
+          {{corp.name}}
+        </div>
+    </div>
+        <div class="row">
+        <div class="col-xl-3 col-lg-6">
+            <app-stat [bgClass]="'primary'" [icon]="'fa-diamond'" [count]="2" [label]="'产品'" [linkUrl]="'/prod/product'" ></app-stat>
+        </div>
+        <div class="col-xl-3 col-lg-6">
+            <app-stat [bgClass]="'warning'" [icon]="'fa-tasks'" [count]="12" [label]="'库存'" ></app-stat>
+        </div>
+        <div class="col-xl-3 col-lg-6">
+            <app-stat [bgClass]="'success'" [icon]="'fa-shopping-cart'" [count]="5" [label]="'零售订单'" ></app-stat>
+        </div>
+
+    </div>
+    <hr />
+
+</div>

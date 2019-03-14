@@ -1,0 +1,133 @@
+<div class="container">
+    <form (ngSubmit)="paginateQuery(null)">
+        <div class="row">
+            <div class="col-xs-6 col-md-6">
+                <div class="row">
+                    <div class="col-4 text-left">
+                        发货仓库
+                    </div>
+                    <div class="col-8">
+                        <select [(ngModel)]="searchData.warehouseId" class="form-control" id="idwarehouseId">
+                            <option value="">请选择</option>
+                            <option *ngFor="let item of listWarehouse" [value]="item.id">{{item.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6 col-md-6">
+                <div class="row">
+                    <div class="col-4 text-left">
+                        订单编号
+                    </div>
+                    <div class="col-8 text-left">
+                        <input type="text" [(ngModel)]="searchData.orderNo" class="form-control" name="orderNo"
+                               id="idbillCode">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6 col-md-6">
+                <div class="row">
+                    <div class="col-4 text-left">
+                        物流单编号
+                    </div>
+                    <div class="col-8 text-left">
+                        <input type="text" [(ngModel)]="searchData.transOrderNo" class="form-control" name="transOrderNo"
+                               id="idtransOrderNo">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6 col-md-6">
+                <div class="row">
+                    <div class="col-4 text-left">
+                        手机号码
+                    </div>
+                    <div class="col-8 text-left">
+                        <input type="text" [(ngModel)]="searchData.userMobile" class="form-control" name="userMobile"
+                               id="iduserMobile">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6 col-md-6">
+                <div class="row">
+                    <div class="col-4 text-left">
+                        订单状态
+                    </div>
+                    <div class="col-8 text-left">
+                        <select [(ngModel)]="searchData.status" name="status" class="form-control" id="idStatus">
+                            <option value="">请选择</option>
+                            <option value="1">待发货</option>
+                            <option value="2">已发货</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-md-12">
+                <div class="row">
+                    <div class="col-2 text-left">
+                        日期范围
+                    </div>
+                    <div class="col-10 text-left">
+                        <p-calendar [(ngModel)]="searchData.startDate" showButtonBar="true" dataType="string"
+                                    name="startDate" dateFormat="yy-mm-dd"></p-calendar>
+                        至
+                        <p-calendar [(ngModel)]="searchData.endDate" showButtonBar="true" dataType="string"
+                                    name="endDate" dateFormat="yy-mm-dd"></p-calendar>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-12 text-right ">
+                    <button class="btn btn-primary" type="submit" [disabled]="submitted">查询</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="col-xl-12">
+    <p-table [value]="listData">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>订单ID</th>
+                <th>发货日期</th>
+                <th>物流单号</th>
+                <th>金额</th>
+                <th>数量</th>
+                <th>发货仓库</th>
+                <th>收货联系人</th>
+                <th>收货人手机号码</th>
+                <th>收货城市</th>
+                <th>发货单状态</th>
+                <th>操作</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+            <tr>
+                <td class="break-custom">
+                    {{item.orderNo}}
+                </td>
+                <td class="break-custom">{{item.createdDate}}</td>
+                <td class="break-custom">
+                    {{item.transOrderNo}}
+                </td>
+                <td>{{item.amount}}</td>
+                <td>{{item.totalCount}}</td>
+                <td>{{item.warehouseId}}</td>
+                <td>{{item.recvAddress.linkName}}</td>
+                <td class="break-custom">{{item.recvAddress.linkTel}}</td>
+                <td>{{item.recvAddress.city}}</td>
+                <td>
+                    <span *ngIf="item.status == 1">待发货</span>
+                    <span *ngIf="item.status == 2">已发货</span>
+                </td>
+                <td>
+                    <button class="btn btn-outline-secondary" (click)="toView(item.id)">查看</button>
+                    &nbsp;
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <p-paginator [rows]="pageNav.itemsPerPage" [totalRecords]="pageNav.totalElements"
+                 (onPageChange)="paginateQuery($event)"></p-paginator>
+</div>
